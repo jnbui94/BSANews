@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view
      */
     public void loginClicked(View view){
-        sign_in_btn = (Button) view.findViewById(R.id.email_sign_in_button);
+        sign_in_btn = (Button) findViewById(R.id.email_sign_in_button);
         attemptLogin(view);
     }
 
@@ -52,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
      * @param view
      */
     protected void attemptLogin(View view){
-        TextView usernameTextView = (TextView) view.findViewById(R.id.email);
-        TextView passwordTextView = (TextView) view.findViewById(R.id.password);
+        TextView usernameTextView = (TextView) findViewById(R.id.email);
+        TextView passwordTextView = (TextView) findViewById(R.id.password);
         boolean cancel = false;
         View focusView = passwordTextView;
 
@@ -145,6 +145,9 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
                 sign_in_btn.setEnabled(true);
                 return;
+            }else if (result.startsWith("false")){
+                sign_in_btn.setEnabled(true);
+                Toast.makeText(getApplicationContext(),"username or password not correct", Toast.LENGTH_SHORT);
             }
             // TODO: 2017/2/6  authentication
 
