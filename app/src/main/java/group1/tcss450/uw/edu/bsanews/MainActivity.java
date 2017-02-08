@@ -17,8 +17,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PARTIAL_URL
-            = "http://cssgate.insttech.washington.edu/" +
-            "~jnbui94/feedback";
+            = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
     private TextView mTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         
     }
-    public void buttonClick(View view) {
+    public void buttonClicked(View view) {
         AsyncTask<String, Void, String> task = null;
         String message = ((EditText) findViewById(R.id.textEdit)).getText().toString();
         switch (view.getId()) {
