@@ -39,11 +39,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * when login button clicked.
+     * when login button clicked, or register button clicked.
      * @param view
      */
     public void loginClicked(View view){
         sign_in_btn = (Button) findViewById(R.id.email_sign_in_button);
+        // TODO: 2/7/2017 register button clicked. 
         attemptLogin(view);
     }
 
@@ -87,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         }else {
             //connect server
-            // TODO: 2017/2/6 link to MainActivity
             AsyncTask<String, Void, String> task = null;
             sign_in_btn.setEnabled(false);
             task = new PostWebServiceTask();
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                 String data = URLEncoder.encode("my_name", "UTF-8")
                         + "=" + URLEncoder.encode(strings[1], "UTF-8")
                         + "&" + URLEncoder.encode("my_pw", "UTF-8")
-                        + URLEncoder.encode(strings[2], "UTF-8");
+                        + "=" + URLEncoder.encode(strings[2], "UTF-8");
                 wr.write(data);
                 wr.flush();
 
@@ -145,17 +145,17 @@ public class LoginActivity extends AppCompatActivity {
                         .show();
                 sign_in_btn.setEnabled(true);
                 return;
-            }else if (result.startsWith("false")){
+            }else if (!result.startsWith("true")){
                 sign_in_btn.setEnabled(true);
-                Toast.makeText(getApplicationContext(),"username or password not correct", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(),"username or password not correct", Toast.LENGTH_SHORT).show();
+            }else if (result.startsWith("true")){
+                Toast.makeText(getApplicationContext(),"login success",Toast.LENGTH_SHORT).show();
             }
-            // TODO: 2017/2/6  authentication
-
+            // TODO: 2017/2/6  delete next line
+            //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+            // TODO: 2/7/2017  connect other activity 
         }
 
-        protected void authenticate(String result){
-
-        }
     }
 
 }
