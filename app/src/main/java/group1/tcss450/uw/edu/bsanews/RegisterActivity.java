@@ -2,8 +2,6 @@ package group1.tcss450.uw.edu.bsanews;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,98 +18,65 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-/**
- * THE FIRST ACTIVITY.
- * provide login.
- */
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     /**
      * url of the database
      */
     private static final String PARTIAL_URL
             = "http://cssgate.insttech.washington.edu/" +
             "~shw26/dbconnect";
-
     /**
      * for inner class to enable the button.
      */
-    private Button sign_in_btn;
+    private Button reg_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        Button btn = (Button) findViewById(R.id.email_sign_in_button);
+        setContentView(R.layout.activity_register);
+        Button btn = (Button) findViewById(R.id.register_submitBtn);
         btn.setOnClickListener(this);
-        sign_in_btn = btn;
-        // TODO: 2017/2/8 register button.
-//        btn = (Button) findViewById(R.id.login_registerBtn);
-//        btn.setOnClickListener(this);
+        reg_btn = btn;
     }
 
-    /**
-     * when login button clicked, or register button clicked.
-     * @param view
-     */
-    /*public void loginClicked(View view){
-        sign_in_btn = (Button) findViewById(R.id.email_sign_in_button);
-        switch(view.getId()){
-            case R.id.email_sign_in_button:
-                attemptLogin(view);
-                break;
-        }
 
-    }*/
-
-    /**
-     * When sign in clicked or register clicked.
-     * @param view
-     */
     @Override
     public void onClick(View view) {
-        //sign_in_btn = (Button) findViewById(R.id.email_sign_in_button);
-        switch(view.getId()){
-            case R.id.email_sign_in_button:
-                attemptLogin(view);
-                break;
-
-            // TODO: 2/7/2017 register button clicked.
-//            case R.id.login_registerBtn:
-//                Intent intent = new Intent(this, RegisterActivity.class);
-//                startActivity(intent);
-        }
-
+        attemptLogin(view);
     }
 
-    /**
-     * attempt to Login.
-     * @param view
-     */
     protected void attemptLogin(View view){
-        TextView usernameTextView = (TextView) findViewById(R.id.email);
-        TextView passwordTextView = (TextView) findViewById(R.id.password);
+        TextView usernameTextView = (TextView) findViewById(R.id.register_username);
+        TextView passwordTextView = (TextView) findViewById(R.id.register_password);
+        TextView repasswordTextView = (TextView) findViewById(R.id.register_repeatPassword);
         boolean cancel = false;
         View focusView = usernameTextView;
 
         usernameTextView.setError(null);
         passwordTextView.setError(null);
+        repasswordTextView.setError(null);
         String username = usernameTextView.getText().toString();
         String password = passwordTextView.getText().toString();
+        String repassword = repasswordTextView.getText().toString();
 
-        //if the password is not entered or not legit
+        //if the password is entered and legit
         if (TextUtils.isEmpty(password) || password.length() <4) {
             passwordTextView.setError("INVALID PASSWORD, REQUIRED 4");
             focusView = passwordTextView;
             cancel = true;
         }
-        //if the username/email is not entered or not legit
         if (TextUtils.isEmpty(username) || username.length() <4){
-            usernameTextView.setError("INVALID EMAIL");
+            usernameTextView.setError("INVALID PASSWORD, REQUIRED 4");
             focusView = usernameTextView;
             cancel = true;
         }
+        if (TextUtils.isEmpty(repassword) || !password.matches(repassword)){
+            repasswordTextView.setError("password does not match");
+            focusView = repasswordTextView;
+            cancel = true;
+        }
 
-        //if the values are not entered properly, else try to connect the server
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -119,24 +84,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else {
             //connect server
             AsyncTask<String, Void, String> task = null;
-            sign_in_btn.setEnabled(false);
-            task = new PostWebServiceTask();
+            reg_btn.setEnabled(false);
+            task = new RegisterActivity.PostWebServiceTask();
             task.execute(PARTIAL_URL, username, password);
         }
     }
 
     private void goToMainActivity(){
-        // TODO: 2017/2/7 change this to mainActivity tomorrow.
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 
     /**
      * Code provided by instructor.
      */
     private class PostWebServiceTask extends AsyncTask<String, Void, String> {
-        private final String SERVICE = "_login.php";
+        private final String SERVICE = "_register.php";
 
         @Override
         protected String doInBackground(String... strings) {
@@ -183,16 +146,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (result.startsWith("Unable to")) {
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
-                sign_in_btn.setEnabled(true);
+                reg_btn.setEnabled(true);
                 return;
             }else if (!result.startsWith("true")){
                 //if the username or the password is not correct.
-                sign_in_btn.setEnabled(true);
-                Toast.makeText(getApplicationContext(),"username or password not correct", Toast.LENGTH_SHORT).show();
+                reg_btn.setEnabled(true);
+                Toast.makeText(getApplicationContext(),"username already exist", Toast.LENGTH_SHORT).show();
             }else if (result.startsWith("true")){
                 //if the username and password matches a data in the db.
-                Toast.makeText(getApplicationContext(),"login success",Toast.LENGTH_SHORT).show();
-                sign_in_btn.setEnabled(true);
+                Toast.makeText(getApplicationContext(),"create and login success",Toast.LENGTH_SHORT).show();
+                reg_btn.setEnabled(true);
                 goToMainActivity();
             }
 
