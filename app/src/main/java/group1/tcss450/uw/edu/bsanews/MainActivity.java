@@ -12,13 +12,17 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String PARTIAL_URL
-            = "https://api.cognitive.microsoft.com/bing/v5.0/news/search";
+    private static final String mURL
+            = "https://api.cognitive.microsoft.com/bing/v5.0/news/";
     private TextView mTextView;
+    private static  final String mKey = "3abb779da1e740bfab3f95c7fed2475c";
+    private static final String mKey1 = "cbfd463af4de4614af5482ce40870522";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         String message = ((EditText) findViewById(R.id.textEdit)).getText().toString();
         switch (view.getId()) {
             case R.id.Head:
-                task = new TestWebServiceTask();
+                task = new PostWebServiceTask();
                 break;
 //            case R.id.getbutton:
 //                task = new GetWebServiceTask();
@@ -41,18 +45,27 @@ public class MainActivity extends AppCompatActivity {
             default:
                 throw new IllegalStateException("Not implemented");
         }
-        task.execute(PARTIAL_URL, message);
+        task.execute(mURL, message);
     }
-    private class TestWebServiceTask extends AsyncTask<String, Void, String> {
-        private final String SERVICE = "_static.php";
+    private class PostWebServiceTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
+            if (strings.length != 2) {
+                throw new IllegalArgumentException("Two String arguments required.");
+            }
             String response = "";
             HttpURLConnection urlConnection = null;
             String url = strings[0];
             try {
-                URL urlObject = new URL(url + SERVICE);
+                URL urlObject = new URL(mURL);
                 urlConnection = (HttpURLConnection) urlObject.openConnection();
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
+                OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
+                String data = URLEncoder.encode("Ocp-Apim-Subscription-Key", "UTF-8")
+                        + "=" + URLEncoder.encode(mKey, "UTF-8");
+                wr.write(data);
+                wr.flush();
                 InputStream content = urlConnection.getInputStream();
                 BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
                 String s = "";
