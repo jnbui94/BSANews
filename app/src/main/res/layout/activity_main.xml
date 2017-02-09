@@ -10,8 +10,32 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="group1.tcss450.uw.edu.bsanews.MainActivity">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/button1"
+        android:text="@string/load_button"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button1"
+        android:text="@string/head_button"
+        android:id="@+id/Head"
+        android:onClick="buttonClicked"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Head"
+        android:id="@+id/Sport"
+        android:text="@string/Category_button"
+        android:onClick="buttonClicked"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Sport"
+        android:hint="Edit text"
+        android:id="@+id/textEdit"/>
+
 </RelativeLayout>
