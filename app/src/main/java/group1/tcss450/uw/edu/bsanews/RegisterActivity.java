@@ -18,6 +18,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+/**
+ * This is the activity for register a new account.
+ */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     /**
      * url of the database
@@ -26,9 +29,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             = "http://cssgate.insttech.washington.edu/" +
             "~shw26/dbconnect";
     /**
+     * the key for passing username by intent.
+     */
+    private static final String LOGIN_USERNAME = "USERNAME";
+    /**
      * for inner class to enable the button.
      */
     private Button reg_btn;
+    /**
+     * store the user name for passing to another activity.
+     */
+    private String mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +56,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         attemptLogin(view);
     }
 
+    /**
+     * attempt to login
+     * @param view
+     */
     protected void attemptLogin(View view){
         TextView usernameTextView = (TextView) findViewById(R.id.register_username);
         TextView passwordTextView = (TextView) findViewById(R.id.register_password);
@@ -66,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             cancel = true;
         }
         if (TextUtils.isEmpty(username) || username.length() <4){
-            usernameTextView.setError("INVALID PASSWORD, REQUIRED 4");
+            usernameTextView.setError("INVALID USERNAME, REQUIRED 4");
             focusView = usernameTextView;
             cancel = true;
         }
@@ -76,6 +91,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             cancel = true;
         }
 
+        if (username.contains("'")){
+            usernameTextView.setError("INVALID USERNAME, contains \" ' \" ");
+            focusView = usernameTextView;
+            cancel = true;
+        }
+
+        if (password.contains("'")){
+            passwordTextView.setError("INVALID USERNAME, contains \" ' \" ");
+            focusView = passwordTextView;
+            cancel = true;
+        }
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -83,6 +109,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             focusView.requestFocus();
         }else {
             //connect server
+            mUsername = username;
             AsyncTask<String, Void, String> task = null;
             reg_btn.setEnabled(false);
             task = new RegisterActivity.PostWebServiceTask();
@@ -90,8 +117,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    /**
+     * the web service task will call this method if the username/password passed the authentication.
+     */
     private void goToMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(LOGIN_USERNAME ,mUsername);
         startActivity(intent);
     }
 

@@ -2,11 +2,10 @@ package group1.tcss450.uw.edu.bsanews;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.provider.Settings;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,16 +25,24 @@ import java.net.URLEncoder;
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     /**
-     * url of the database
+     * url of the database.
      */
     private static final String PARTIAL_URL
             = "http://cssgate.insttech.washington.edu/" +
             "~shw26/dbconnect";
 
     /**
+     * the key for passing username by intent.
+     */
+    private static final String LOGIN_USERNAME = "USERNAME";
+    /**
      * for inner class to enable the button.
      */
-    private Button sign_in_btn;
+    private Button mSignInBtn;
+    /**
+     * store the user name for passing to another activity.
+     */
+    private String mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +50,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         Button btn = (Button) findViewById(R.id.email_sign_in_button);
         btn.setOnClickListener(this);
-        sign_in_btn = btn;
-        // TODO: 2017/2/8 register button.
-//        btn = (Button) findViewById(R.id.login_registerBtn);
-//        btn.setOnClickListener(this);
+        mSignInBtn = btn;
+        btn = (Button) findViewById(R.id.login_registerBtn);
+        btn.setOnClickListener(this);
     }
 
     /**
@@ -54,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @param view
      */
     /*public void loginClicked(View view){
-        sign_in_btn = (Button) findViewById(R.id.email_sign_in_button);
+        mSignInBtn = (Button) findViewById(R.id.email_sign_in_button);
         switch(view.getId()){
             case R.id.email_sign_in_button:
                 attemptLogin(view);
@@ -69,16 +75,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     @Override
     public void onClick(View view) {
-        //sign_in_btn = (Button) findViewById(R.id.email_sign_in_button);
+        //mSignInBtn = (Button) findViewById(R.id.email_sign_in_button);
         switch(view.getId()){
             case R.id.email_sign_in_button:
                 attemptLogin(view);
                 break;
-
-            // TODO: 2/7/2017 register button clicked.
-//            case R.id.login_registerBtn:
-//                Intent intent = new Intent(this, RegisterActivity.class);
-//                startActivity(intent);
+            case R.id.login_registerBtn:
+                Intent intent = new Intent(this, RegisterActivity.class);
+                startActivity(intent);
+                break;
         }
 
     }
@@ -106,11 +111,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         //if the username/email is not entered or not legit
         if (TextUtils.isEmpty(username) || username.length() <4){
-            usernameTextView.setError("INVALID EMAIL");
+            usernameTextView.setError("INVALID USERNAME");
+            focusView = usernameTextView;
+            cancel = true;
+        }
+        if (username.contains("'")){
+            usernameTextView.setError("INVALID USERNAME, contains \" ' \" ");
             focusView = usernameTextView;
             cancel = true;
         }
 
+        if (password.contains("'")){
+            passwordTextView.setError("INVALID USERNAME, contains \" ' \" ");
+            focusView = passwordTextView;
+            cancel = true;
+        }
         //if the values are not entered properly, else try to connect the server
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -118,16 +133,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             focusView.requestFocus();
         }else {
             //connect server
+            mUsername = username;
             AsyncTask<String, Void, String> task = null;
-            sign_in_btn.setEnabled(false);
+            mSignInBtn.setEnabled(false);
             task = new PostWebServiceTask();
             task.execute(PARTIAL_URL, username, password);
         }
     }
 
+    /**
+     * the web service task will call this method if the username/password passed the authentication.
+     */
     private void goToMainActivity(){
-        // TODO: 2017/2/7 change this to mainActivity tomorrow.
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(LOGIN_USERNAME ,mUsername);
         startActivity(intent);
     }
 
@@ -183,16 +202,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (result.startsWith("Unable to")) {
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
-                sign_in_btn.setEnabled(true);
+                mSignInBtn.setEnabled(true);
                 return;
             }else if (!result.startsWith("true")){
                 //if the username or the password is not correct.
-                sign_in_btn.setEnabled(true);
+                mSignInBtn.setEnabled(true);
                 Toast.makeText(getApplicationContext(),"username or password not correct", Toast.LENGTH_SHORT).show();
             }else if (result.startsWith("true")){
                 //if the username and password matches a data in the db.
                 Toast.makeText(getApplicationContext(),"login success",Toast.LENGTH_SHORT).show();
-                sign_in_btn.setEnabled(true);
+                mSignInBtn.setEnabled(true);
                 goToMainActivity();
             }
 
