@@ -22,7 +22,7 @@ import java.net.URI;
 
 /**
  * this activity provide the main menu.
- * @author
+ * @author John Bui
  */
 public class MainActivity extends AppCompatActivity {
     /**
