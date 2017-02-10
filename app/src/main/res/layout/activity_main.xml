@@ -37,10 +37,10 @@
         android:text="@string/Category_button"
         android:onClick="buttonClicked"/>
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Edit text"
-        android:id="@+id/textEdit"/>
+        android:hint="Text view"
+        android:id="@+id/main_textView"/>
 
 </LinearLayout>
