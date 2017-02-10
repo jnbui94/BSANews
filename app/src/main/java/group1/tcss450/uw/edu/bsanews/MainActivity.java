@@ -1,5 +1,6 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -30,22 +31,30 @@ public class MainActivity extends AppCompatActivity {
         
     }
     public void buttonClicked(View view) {
+        Intent intent;
         AsyncTask<String, Void, String> task = null;
         String message = ((EditText) findViewById(R.id.textEdit)).getText().toString();
         switch (view.getId()) {
             case R.id.Head:
                 task = new PostWebServiceTask();
+
+                task.execute(mURL, message);
                 break;
-//            case R.id.getbutton:
-//                task = new GetWebServiceTask();
-//                break;
+            case R.id.main_loadBtn:
+                intent = new Intent(this, LoadActivity.class);
+                startActivity(intent);
+                break;
 //            case R.id.postbutton:
 //                task = new PostWebServiceTask();
 //                break;
+            case R.id.main_saveBtn:
+                intent = new Intent(this, SaveActivity.class);
+                startActivity(intent);
+                break;
+
             default:
                 throw new IllegalStateException("Not implemented");
         }
-        task.execute(mURL, message);
     }
     private class PostWebServiceTask extends AsyncTask<String, Void, String> {
         @Override

@@ -3,7 +3,10 @@ package group1.tcss450.uw.edu.bsanews;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -15,12 +18,13 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 /**
- *This activity loads data from database.
+ * Save Activity allow user to save a URL.
  * @author Aygun Avazova
  */
-public class LoadActivity extends AppCompatActivity {
+public class SaveActivity extends AppCompatActivity implements View.OnClickListener{
+
     /**
-     * URL to connect database.
+     * URL to connect to database.
      */
     private static final String PARTIAL_URL
             = "http://cssgate.insttech.washington.edu/" +
@@ -28,7 +32,7 @@ public class LoadActivity extends AppCompatActivity {
     /**
      * Allow AsyncTask to set message.
      */
-    private TextView mTextView;
+    private EditText mEditText;
 
     /**
      * Initialize components.
@@ -36,22 +40,38 @@ public class LoadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_load);
-        mTextView = (TextView) findViewById(R.id.load_TextView);
-        AsyncTask<String, Void, String> task =null;
-        task = new PostWebServiceTask();
-        //qwerty is a place holder.
-        task.execute(PARTIAL_URL, "shw26");
+        setContentView(R.layout.activity_save);
+        mEditText=(EditText) findViewById(R.id.save_edit_text);
+        Button btn =(Button) findViewById(R.id.save_submit_button);
+        btn.setOnClickListener(this);
+
     }
+
+    /**
+     * When submit button is pressed.
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.save_submit_button:
+                String url = mEditText.getText().toString();
+                AsyncTask<String, Void, String> task =null;
+                task = new SaveActivity.PostWebServiceTask();
+                //qwerty is a place holder.
+                task.execute(PARTIAL_URL, "shw26", url);
+        }
+    }
+
     /**
      * Code was provieded by Mr. Bryan Charles.
      */
     private class PostWebServiceTask extends AsyncTask<String, Void, String> {
-        private final String SERVICE = "_load.php";
+        private final String SERVICE = "_save.php";
 
         @Override
         protected String doInBackground(String... strings) {
-            if (strings.length != 2) {
+            if (strings.length != 3) {
                 throw new IllegalArgumentException("two String arguments required.");
             }
             String response = "";
@@ -65,7 +85,9 @@ public class LoadActivity extends AppCompatActivity {
                 OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
                 //my_name=username&my_pw=password
                 String data = URLEncoder.encode("my_name", "UTF-8")
-                        + "=" + URLEncoder.encode(strings[1], "UTF-8");
+                        + "=" + URLEncoder.encode(strings[1], "UTF-8")
+                        + "&" + URLEncoder.encode("my_url", "UTF-8")
+                        + "=" + URLEncoder.encode(strings[2],"UTF-8");
                 wr.write(data);
                 wr.flush();
 
@@ -94,15 +116,18 @@ public class LoadActivity extends AppCompatActivity {
                         .show();
 
                 return;
-            }else {
-                //Display message from database.
-                mTextView.setText(result);
+            }else if(result.startsWith("true")){
 
+                //if saved successfully show toast
+               Toast.makeText(getApplicationContext(),"Saved Successfully",
+                       Toast.LENGTH_SHORT).show();
+            }else if (result.startsWith("false")){
+                //if failed show this message.
+                Toast.makeText(getApplicationContext(),"the URL already exists in Database",
+                        Toast.LENGTH_SHORT).show();
             }
 
         }
 
     }
-
-
 }
