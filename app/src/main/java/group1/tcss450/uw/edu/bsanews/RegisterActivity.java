@@ -20,6 +20,7 @@ import java.net.URLEncoder;
 
 /**
  * This is the activity for register a new account.
+ * @author shao-han wang
  */
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
     /**

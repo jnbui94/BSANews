@@ -21,6 +21,7 @@ import java.net.URLEncoder;
 /**
  * THE FIRST ACTIVITY.
  * provide login.
+ * @author shao-han wang
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     /**
