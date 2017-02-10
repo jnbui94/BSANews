@@ -20,19 +20,52 @@ import org.apache.http.util.EntityUtils;
 
 import java.net.URI;
 
+/**
+ * this activity provide the main menu.
+ * @author
+ */
 public class MainActivity extends AppCompatActivity {
+    /**
+     * url to connect to our database.
+     */
     private static final String mURL
             = "https://api.cognitive.microsoft.com/bing/v5.0/news/";
+    /**
+     * allow the asynctask to change the content.
+     */
     private TextView mTextView;
+    /**
+     * keys for connect to external database.
+     */
     private static  final String mKey = "3abb779da1e740bfab3f95c7fed2475c";
     private static final String mKey1 = "cbfd463af4de4614af5482ce40870522";
+
+    /**
+     * the key for getting the username.
+     */
+    private static final String KEY_USERNAME = "USERNAME";
+    /**
+     * hold the username.
+     */
+    private String mUsername;
+
+    /**
+     * initialize the contents.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextView = (TextView) findViewById(R.id.main_textView);
+        mUsername = getIntent().getStringExtra(KEY_USERNAME);
         
     }
+
+    /**
+     * when a button is clicked.
+     * @param view
+     */
     public void buttonClicked(View view) {
         Intent intent;
         AsyncTask<String, Void, String> task = null;
@@ -45,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.main_loadBtn:
                 intent = new Intent(this, LoadActivity.class);
+                intent.putExtra(KEY_USERNAME, mUsername);
                 startActivity(intent);
                 break;
 //            case R.id.postbutton:
@@ -52,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 //                break;
             case R.id.main_saveBtn:
                 intent = new Intent(this, SaveActivity.class);
+                intent.putExtra(KEY_USERNAME, mUsername);
                 startActivity(intent);
                 break;
 
@@ -59,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
                 throw new IllegalStateException("Not implemented");
         }
     }
+
+    /**
+     * sample code provided by instructor.
+     */
     private class PostWebServiceTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
@@ -68,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             //String response = "";
             HttpClient httpclient = HttpClients.createDefault();
 
+            //modified example code from microsoft
             try
             {
 
@@ -85,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 entity = response.getEntity();
                 String result =  new String(EntityUtils.toString(entity));
 
+                //debug purposes.
                 if (entity != null)
                 {
                     Log.d("entity not null", result);
@@ -94,34 +135,10 @@ public class MainActivity extends AppCompatActivity {
             }
             catch (Exception e)
             {
-                Log.d("exception ",e.getMessage());
+                //Log.d("exception ",e.getMessage());
+                String result = "Unable to connect, Reason: " + e.getMessage();
                 return e.getMessage();
             }
-//            HttpURLConnection urlConnection = null;
-//            String url = strings[0];
-//            try {
-//                URL urlObject = new URL(mURL);
-//                urlConnection = (HttpURLConnection) urlObject.openConnection();
-//                urlConnection.setRequestMethod("POST");
-//                urlConnection.setDoOutput(true);
-//                OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
-//                String data = URLEncoder.encode("Ocp-Apim-Subscription-Key", "UTF-8")
-//                        + "=" + URLEncoder.encode(mKey, "UTF-8");
-//                wr.write(data);
-//                wr.flush();
-//                InputStream content = urlConnection.getInputStream();
-//                BufferedReader buffer = new BufferedReader(new InputStreamReader(content));
-//                String s = "";
-//                while ((s = buffer.readLine()) != null) {
-//                    response += s;
-//                }
-//            } catch (Exception e) {
-//                response = "Unable to connect, Reason: "
-//                        + e.getMessage();
-//            } finally {
-//                if (urlConnection != null)
-//                    urlConnection.disconnect();
-//            }
         }
         @Override
         protected void onPostExecute(String result) {

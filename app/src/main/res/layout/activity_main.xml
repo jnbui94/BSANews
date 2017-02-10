@@ -30,12 +30,6 @@
         android:text="@string/head_button"
         android:id="@+id/Head"
         android:onClick="buttonClicked"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Sport"
-        android:text="@string/Category_button"
-        android:onClick="buttonClicked"/>
 
     <TextView
         android:layout_width="wrap_content"

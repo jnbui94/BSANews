@@ -34,6 +34,9 @@ public class SaveActivity extends AppCompatActivity implements View.OnClickListe
      */
     private EditText mEditText;
 
+    private static final String KEY_USERNAME = "USERNAME";
+    private String mUsername;
+
     /**
      * Initialize components.
      */
@@ -41,6 +44,7 @@ public class SaveActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save);
+        mUsername = getIntent().getStringExtra(KEY_USERNAME);
         mEditText=(EditText) findViewById(R.id.save_edit_text);
         Button btn =(Button) findViewById(R.id.save_submit_button);
         btn.setOnClickListener(this);
@@ -59,7 +63,7 @@ public class SaveActivity extends AppCompatActivity implements View.OnClickListe
                 AsyncTask<String, Void, String> task =null;
                 task = new SaveActivity.PostWebServiceTask();
                 //qwerty is a place holder.
-                task.execute(PARTIAL_URL, "shw26", url);
+                task.execute(PARTIAL_URL, mUsername, url);
         }
     }
 

@@ -30,6 +30,9 @@ public class LoadActivity extends AppCompatActivity {
      */
     private TextView mTextView;
 
+    private static final String KEY_USERNAME = "USERNAME";
+    private String mUsername;
+
     /**
      * Initialize components.
      */
@@ -37,11 +40,12 @@ public class LoadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
+        mUsername = getIntent().getStringExtra(KEY_USERNAME);
         mTextView = (TextView) findViewById(R.id.load_TextView);
         AsyncTask<String, Void, String> task =null;
         task = new PostWebServiceTask();
         //qwerty is a place holder.
-        task.execute(PARTIAL_URL, "shw26");
+        task.execute(PARTIAL_URL, mUsername);
     }
     /**
      * Code was provieded by Mr. Bryan Charles.

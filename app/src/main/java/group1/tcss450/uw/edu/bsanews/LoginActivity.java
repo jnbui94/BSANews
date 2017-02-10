@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /**
      * the key for passing username by intent.
      */
-    private static final String LOGIN_USERNAME = "USERNAME";
+    private static final String KEY_USERNAME = "USERNAME";
     /**
      * for inner class to enable the button.
      */
@@ -146,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void goToMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(LOGIN_USERNAME ,mUsername);
+        intent.putExtra(KEY_USERNAME,mUsername);
         startActivity(intent);
     }
 
