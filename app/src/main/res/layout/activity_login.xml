@@ -46,9 +46,10 @@
                     android:maxLines="1"
                     android:background="@android:color/white"
                     android:singleLine="true"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
-                    android:textColor="#9e9e9e"/>
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:textColor="#9e9e9e"
+                    android:textSize="18sp"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -68,8 +69,8 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:background="@android:color/white"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"/>
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -87,10 +88,11 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/action_sign_in"
                     android:textStyle="bold"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
-                    android:textColor="#424242"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="15dp"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
+                    android:background="@color/colorRegister"
                     />
 
                 <Button
@@ -101,8 +103,8 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/action_register"
                     android:textStyle="bold"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:textSize="18sp"
                     android:background="@color/colorRegister"
                     android:textColor="@android:color/white"
