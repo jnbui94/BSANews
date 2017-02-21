@@ -108,11 +108,13 @@
                     android:textSize="18sp"
                     android:background="@color/colorRegister"
                     android:textColor="@android:color/white"
-
+                    android:clickable="true"
                     />
+
 
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
