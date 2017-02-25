@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
 //                break;
             case R.id.main_saveBtn:
                 intent = new Intent(this, SaveActivity.class);
+                // TODO: 2017/2/25 test newsViewActivity
+                intent = new Intent(this, NewsViewActivity.class);
                 intent.putExtra(KEY_USERNAME, mUsername);
                 startActivity(intent);
                 break;

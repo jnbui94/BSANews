@@ -3,17 +3,19 @@ package group1.tcss450.uw.edu.bsanews.Model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by jnbui on 2/22/2017.
  */
 
-public class News {
+public class News implements Serializable {
     private String mName;
     private String mUrl;
     private String mDescription;
     private String mImageUrl;
 
-    public News(JSONObject json) throws JSONException{
+    public News(JSONObject json)  throws JSONException{
         create(json);
     }
     private void create(JSONObject json) throws JSONException{

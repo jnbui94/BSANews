@@ -106,7 +106,7 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-            // TODO: 2017/2/25 will send back a array of News. 
+            // TODO: 2017/2/25 will send back a array of News <newses>.
             //Display message from database.
             mTextView.setText("it will show only one data, still working on it" + newses[1].getName());
 

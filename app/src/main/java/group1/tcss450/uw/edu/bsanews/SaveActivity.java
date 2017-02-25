@@ -64,7 +64,7 @@ public class SaveActivity extends AppCompatActivity implements View.OnClickListe
                 String url = mEditText.getText().toString();
                 String name = ((EditText) findViewById(R.id.save_edit_name_text)).getText().toString();
                 String desc = ((EditText) findViewById(R.id.save_edit_description_text)).getText().toString();
-                AsyncTask<String, Void, String> task =null;
+                AsyncTask<String, Void, String> task;
 
                 // TODO: 2017/2/25 test savetodatabase class. 
                 //task = new SaveActivity.PostWebServiceTask();
