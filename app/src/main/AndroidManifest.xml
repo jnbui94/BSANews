@@ -39,7 +39,11 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoadActivity" />
-        <activity android:name=".SaveActivity"></activity>
+        <activity android:name=".SaveActivity" />
+        <activity
+            android:name=".NewsViewActivity"
+            android:label="@string/title_activity_news_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

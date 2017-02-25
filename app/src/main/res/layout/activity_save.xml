@@ -10,11 +10,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="group1.tcss450.uw.edu.bsanews.SaveActivity"
     android:orientation="vertical">
-<EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/save_edit_text"
-    android:hint="enter URL"/>
+
+    <!--todo, this will be deleted later-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_edit_name_text"
+        android:hint="enter title"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_edit_text"
+        android:hint="enter URL"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_edit_description_text"
+        android:hint="enter description"/>
+
 
     <Button
         android:layout_width="wrap_content"

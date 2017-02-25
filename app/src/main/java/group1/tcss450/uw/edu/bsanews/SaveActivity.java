@@ -17,6 +17,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import group1.tcss450.uw.edu.bsanews.Model.SaveToDatabase;
+
 /**
  * Save Activity allow user to save a URL.
  * @author Aygun Avazova
@@ -60,13 +62,20 @@ public class SaveActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.save_submit_button:
                 String url = mEditText.getText().toString();
+                String name = ((EditText) findViewById(R.id.save_edit_name_text)).getText().toString();
+                String desc = ((EditText) findViewById(R.id.save_edit_description_text)).getText().toString();
                 AsyncTask<String, Void, String> task =null;
-                task = new SaveActivity.PostWebServiceTask();
-                //qwerty is a place holder.
-                task.execute(PARTIAL_URL, mUsername, url);
+
+                // TODO: 2017/2/25 test savetodatabase class. 
+                //task = new SaveActivity.PostWebServiceTask();
+               
+                task = new SaveToDatabase(this);
+                
+                task.execute(PARTIAL_URL, mUsername, url, name, desc);
         }
     }
 
+    // TODO: 2017/2/25 replaced by SaveToDatabase. 
     /**
      * Code was provieded by Mr. Bryan Charles.
      */

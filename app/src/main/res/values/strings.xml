@@ -19,4 +19,5 @@
     <string name="load_button">Load Saved</string>
     <string name="head_button">Top Stories</string>
     <string name="Category_button">Sport</string>
+    <string name="title_activity_news_view">NewsViewActivity</string>
 </resources>

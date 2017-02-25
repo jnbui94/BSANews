@@ -17,18 +17,15 @@ public class News {
         create(json);
     }
     private void create(JSONObject json) throws JSONException{
-        int error_code = 0;
-        if(error_code !=0){
-            // Hello
-        } else {
             mName = json.getString("name");
             mUrl = json.getString("url");
             mDescription = json.getString("description");
-            JSONObject temp = json.getJSONObject("image");
-            temp = temp.getJSONObject("thumbnail");
-            mImageUrl = temp.getString("contentUrl");
-        }
 
+            if(json.has("image")) {
+                JSONObject temp = json.getJSONObject("image");
+                temp = temp.getJSONObject("thumbnail");
+                mImageUrl = temp.getString("contentUrl");
+            }
     }
 
     public String getName(){return mName;}

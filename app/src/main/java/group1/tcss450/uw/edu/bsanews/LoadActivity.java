@@ -14,6 +14,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import group1.tcss450.uw.edu.bsanews.Model.LoadFromDatabase;
+
 /**
  *This activity loads data from database.
  * @author Aygun Avazova
@@ -42,11 +44,16 @@ public class LoadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_load);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
         mTextView = (TextView) findViewById(R.id.load_TextView);
+
         AsyncTask<String, Void, String> task =null;
-        task = new PostWebServiceTask();
-        //qwerty is a place holder.
+        // TODO: 2017/2/25 for testing LoadFromDatabase.
+        //task = new PostWebServiceTask();
+        task = new LoadFromDatabase(this, mTextView);
+
         task.execute(PARTIAL_URL, mUsername);
     }
+
+    // TODO: 2017/2/25 replaced by LoadFromDatabase. 
     /**
      * Code was provieded by Mr. Bryan Charles.
      */
