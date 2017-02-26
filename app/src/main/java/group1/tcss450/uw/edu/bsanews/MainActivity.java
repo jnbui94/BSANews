@@ -1,12 +1,15 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +20,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URI;
+import java.util.ArrayList;
+
+import group1.tcss450.uw.edu.bsanews.Model.News;
 
 /**
  * this activity provide the main menu.
@@ -45,6 +53,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private static final String KEY_USERNAME = "USERNAME";
     /**
+     * ListView field
+     */
+    private ListView mListView;
+    /**
+     * ArrayList for listview.
+     */
+    private ArrayList<News> newsList = null;
+    /**
      * hold the username.
      */
     private String mUsername;
@@ -58,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextView = (TextView) findViewById(R.id.main_textView);
+        mListView = (ListView) findViewById(R.id.News_list_View);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
         
     }
@@ -73,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.Head:
                 task = new PostWebServiceTask();
-
                 task.execute(mURL, message);
                 break;
             case R.id.main_loadBtn:
@@ -144,13 +160,31 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String result) {
+            String[] listItems = null;
+            News news = null;
+           
 // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
             }
-            mTextView.setText(result);
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+//                News news = new News(jsonObject);
+                newsList = news.getNews(jsonObject);
+
+                listItems = new String[newsList.size()];
+                for(int i = 0; i < newsList.size(); i++){
+                    News temp = newsList.get(i);
+                    listItems[i] = temp.getName();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_activated_1, listItems);
+            mListView.setAdapter(adapter);
+           // mTextView.setText(result);
         }
     }
 }
