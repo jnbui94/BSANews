@@ -29,9 +29,9 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
     /**
      * get the activity using this class for showing Toast Msg.
      */
-    AppCompatActivity mActivity;
-    
-    TextView mTextView;
+    private AppCompatActivity mActivity;
+
+    private TextView mTextView;
 
     // TODO: 2017/2/25 take out textview later, this class should return a array of News. 
     /**
@@ -108,8 +108,12 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
 
             // TODO: 2017/2/25 will send back a array of News <newses>.
             //Display message from database.
-            mTextView.setText("it will show only one data, still working on it" + newses[1].getName());
-
+            for (int i = 0; i < newses.length; i++) {
+                mTextView.append(newses[i].getName()+"\n");
+                mTextView.append(newses[i].getUrl()+"\n");
+                mTextView.append(newses[i].getDescription()+"\n");
+                mTextView.append("==============================\n");
+            }
         }
 
     }

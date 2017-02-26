@@ -24,7 +24,7 @@ public class SaveToDatabase extends AsyncTask<String, Void, String> {
     /**
      * get the activity using this class for showing Toast Msg.
      */
-    AppCompatActivity mActivity;
+    private AppCompatActivity mActivity;
 
     /**
      * constructor, takes a activity as argument for showing toast.
@@ -38,7 +38,7 @@ public class SaveToDatabase extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
 
         if (strings.length != 5) {
-            throw new IllegalArgumentException("three String arguments required.");
+            throw new IllegalArgumentException("five String arguments required.");
         }
         String response = "";
         HttpURLConnection urlConnection = null;
