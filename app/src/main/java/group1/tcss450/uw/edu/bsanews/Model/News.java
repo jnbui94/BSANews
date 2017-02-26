@@ -21,7 +21,7 @@ public class News implements Serializable {
 
     public News(JSONObject json)  throws JSONException{
 //        create(json);
-        getNews(json);
+//        getNews(json);
     }
 //    private void create(JSONObject json) throws JSONException{
 //            mName = json.getString("name");
