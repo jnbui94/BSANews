@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import group1.tcss450.uw.edu.bsanews.Model.News;
 import group1.tcss450.uw.edu.bsanews.Model.SaveToDatabase;
@@ -29,7 +30,7 @@ public class NewsViewActivity extends AppCompatActivity {
     /**
      * key for receiving News object.
      */
-    final static String NEWS_KEY = "news";
+    private final static String NEWS_KEY = "news";
     /**
      * key for username.
      */
@@ -63,10 +64,11 @@ public class NewsViewActivity extends AppCompatActivity {
         mNews = (News) getIntent().getSerializableExtra(NEWS_KEY);
 
         mWebView = (WebView) findViewById(R.id.news_webView);
+        mWebView.setWebViewClient(new WebViewClient());
 
-//        mWebView.loadUrl(mNews.getUrl());
+        mWebView.loadUrl(mNews.getUrl());
         // TODO: 2017/2/25 test data 
-        mWebView.loadUrl("https://www.google.com/");
+        //mWebView.loadUrl("https://www.google.com/");
 
     }
 
@@ -103,17 +105,17 @@ public class NewsViewActivity extends AppCompatActivity {
                 task = new SaveToDatabase(this);
 
                 // TODO: 2017/2/25 test data.
-                task.execute(PARTIAL_URL,
-                        mUsername,
-                        mWebView.getUrl(),
-                        "yahoo",
-                        "search engine");
-//                //save the web page to the database.
 //                task.execute(PARTIAL_URL,
 //                        mUsername,
 //                        mWebView.getUrl(),
-//                        mNews.getName(),
-//                        mNews.getDescription());
+//                        "yahoo",
+//                        "search engine");
+                //save the web page to the database.
+                task.execute(PARTIAL_URL,
+                        mUsername,
+                        mWebView.getUrl(),
+                        mNews.getName(),
+                        mNews.getDescription());
                 break;
         }
 

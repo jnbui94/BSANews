@@ -3,10 +3,12 @@ package group1.tcss450.uw.edu.bsanews;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -53,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
      * the key for getting the username.
      */
     private static final String KEY_USERNAME = "USERNAME";
+    /**
+     * key for receiving News object.
+     */
+    private final static String NEWS_KEY = "news";
     /**
      * ListView field
      */
@@ -205,10 +211,22 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            final News[] tempNewses = newses;
             ArrayAdapter adapter = new ArrayAdapter(mThat,
                     android.R.layout.simple_list_item_activated_1,
                     listItems);
             mListView.setAdapter(adapter);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, final View view,
+                                        int position, long id) {
+                    Intent intent = new Intent(mThat, NewsViewActivity.class);
+                    intent.putExtra(KEY_USERNAME, mUsername);
+                    intent.putExtra(NEWS_KEY, tempNewses[position]);
+                    startActivity(intent);
+
+                }
+            });
            // mTextView.setText(result);
             
         }

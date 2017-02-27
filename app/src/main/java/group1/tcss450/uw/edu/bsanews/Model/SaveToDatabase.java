@@ -103,6 +103,7 @@ public class SaveToDatabase extends AsyncTask<String, Void, String> {
         }else {
             // something wrong with sql.
             Toast.makeText(mActivity.getApplicationContext(),result, Toast.LENGTH_SHORT).show();
+            Log.e("SavetoDB",result);
         }
 
     }

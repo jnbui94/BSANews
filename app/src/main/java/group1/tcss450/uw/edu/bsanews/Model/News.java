@@ -20,44 +20,42 @@ public class News implements Serializable {
     private String mImageUrl;
 
     public News(JSONObject json)  throws JSONException{
-//        create(json);
+        create(json);
 //        getNews(json);
     }
-//    private void create(JSONObject json) throws JSONException{
-//            mName = json.getString("name");
-//            mUrl = json.getString("url");
-//            mDescription = json.getString("description");
-//
-//            if(json.has("image")) {
-//                JSONObject temp = json.getJSONObject("image");
-//                temp = temp.getJSONObject("thumbnail");
-//                mImageUrl = temp.getString("contentUrl");
-//            }
-//
-//    }
+    private void create(JSONObject json) throws JSONException{
+            mName = json.getString("name");
+            mUrl = json.getString("url");
+            mDescription = json.getString("description");
 
-
-
-
-    public static ArrayList<News> getNews(JSONObject json) {
-        final ArrayList<News> recipeList = new ArrayList<>();
-        try {
-            News news = new News(json);
-            news.mName = json.getString("name");
-            news.mDescription = json.getString("description");
-            if (json.has("image")) {
+            if(json.has("image")) {
                 JSONObject temp = json.getJSONObject("image");
                 temp = temp.getJSONObject("thumbnail");
-                news.mImageUrl = temp.getString("contentUrl");
+                mImageUrl = temp.getString("contentUrl");
             }
-            news.mUrl = json.getString("url");
 
-            recipeList.add(news);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return recipeList;
     }
+
+
+//    public static ArrayList<News> getNews(JSONObject json) {
+//        final ArrayList<News> recipeList = new ArrayList<>();
+//        try {
+//            News news = new News(json);
+//            news.mName = json.getString("name");
+//            news.mDescription = json.getString("description");
+//            if (json.has("image")) {
+//                JSONObject temp = json.getJSONObject("image");
+//                temp = temp.getJSONObject("thumbnail");
+//                news.mImageUrl = temp.getString("contentUrl");
+//            }
+//            news.mUrl = json.getString("url");
+//
+//            recipeList.add(news);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return recipeList;
+//    }
     public String getName(){return mName;}
     public String getUrl() {return mUrl;}
     public String getDescription() {return mDescription;}
