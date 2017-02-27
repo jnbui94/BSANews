@@ -20,6 +20,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
      * hold the username.
      */
     private String mUsername;
+    /**
+     * allow async task to access the activity.
+     */
+    private AppCompatActivity mThat;
 
     /**
      * initialize the contents.
@@ -76,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.main_textView);
         mListView = (ListView) findViewById(R.id.News_list_View);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
-        
+        mThat = this;
     }
 
     /**
@@ -160,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String result) {
-            String[] listItems = null;
+            String[] listItems = new String[0];
             News news = null;
            
 // Something wrong with the network or the URL.
@@ -169,20 +174,40 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return;
             }
-            try {
-                JSONObject jsonObject = new JSONObject(result);
-//                News news = new News(jsonObject);
-                newsList = news.getNews(jsonObject);
+//            try {
+//                JSONObject jsonObject = new JSONObject(result);
+////                News news = new News(jsonObject);
+//                newsList = news.getNews(jsonObject);
+//
+//                listItems = new String[newsList.size()];
+//                for(int i = 0; i < newsList.size(); i++){
+//                    News temp = newsList.get(i);
+//                    listItems[i] = temp.getName();
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
 
-                listItems = new String[newsList.size()];
-                for(int i = 0; i < newsList.size(); i++){
-                    News temp = newsList.get(i);
-                    listItems[i] = temp.getName();
+            News[] newses = new News[0];
+            try {
+                JSONObject resultObj = new JSONObject(result);
+                JSONArray value = resultObj.getJSONArray("value");
+                newses = new News[value.length()];
+                listItems = new String[value.length()];
+                for (int i = 0; i < value.length(); i++){
+                    JSONObject oneNews = (JSONObject) value.get(i);
+                    Log.d("LoadFromDB one", oneNews.getString("url"));
+                    newses[i] = new News(oneNews);
+                    listItems[i] = newses[i].getName();
                 }
-            } catch (JSONException e) {
+
+            } catch (JSONException e){
                 e.printStackTrace();
             }
-            ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_activated_1, listItems);
+
+            ArrayAdapter adapter = new ArrayAdapter(mThat,
+                    android.R.layout.simple_list_item_activated_1,
+                    listItems);
             mListView.setAdapter(adapter);
            // mTextView.setText(result);
         }
