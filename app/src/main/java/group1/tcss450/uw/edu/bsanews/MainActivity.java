@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
                     listItems);
             mListView.setAdapter(adapter);
            // mTextView.setText(result);
+            
         }
     }
 }
