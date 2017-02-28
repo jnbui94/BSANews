@@ -1,12 +1,18 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,8 +23,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URI;
+import java.util.ArrayList;
+
+import group1.tcss450.uw.edu.bsanews.Model.News;
 
 /**
  * this activity provide the main menu.
@@ -45,9 +57,27 @@ public class MainActivity extends AppCompatActivity {
      */
     private static final String KEY_USERNAME = "USERNAME";
     /**
+     * key for receiving News object.
+     */
+    private final static String NEWS_KEY = "news";
+    /**
+     * ListView field
+     */
+    private ListView mListView;
+    /**
+     * ArrayList for listview.
+     */
+    private ArrayList<News> newsList = null;
+    /**
      * hold the username.
      */
     private String mUsername;
+    /**
+     * allow async task to access the activity.
+     */
+    private AppCompatActivity mThat;
+
+    private ProgressBar mProgressBar;
 
     /**
      * initialize the contents.
@@ -58,8 +88,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextView = (TextView) findViewById(R.id.main_textView);
+        mListView = (ListView) findViewById(R.id.News_list_View);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
-        
+        mProgressBar = (ProgressBar) findViewById(R.id.main_progressBar);
+        mThat = this;
+
     }
 
     /**
@@ -73,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.Head:
                 task = new PostWebServiceTask();
-
                 task.execute(mURL, message);
                 break;
             case R.id.main_loadBtn:
@@ -101,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
      * sample code provided by instructor.
      */
     private class PostWebServiceTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected String doInBackground(String... strings) {
             if (strings.length != 2) {
@@ -144,13 +182,64 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String result) {
+            String[] listItems = new String[0];
+            News news = null;
+           
 // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
                         .show();
                 return;
             }
-            mTextView.setText(result);
+//            try {
+//                JSONObject jsonObject = new JSONObject(result);
+////                News news = new News(jsonObject);
+//                newsList = news.getNews(jsonObject);
+//
+//                listItems = new String[newsList.size()];
+//                for(int i = 0; i < newsList.size(); i++){
+//                    News temp = newsList.get(i);
+//                    listItems[i] = temp.getName();
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+
+            News[] newses = new News[0];
+            try {
+                JSONObject resultObj = new JSONObject(result);
+                JSONArray value = resultObj.getJSONArray("value");
+                newses = new News[value.length()];
+                listItems = new String[value.length()];
+                for (int i = 0; i < value.length(); i++){
+                    JSONObject oneNews = (JSONObject) value.get(i);
+                    Log.d("LoadFromDB one", oneNews.getString("url"));
+                    newses[i] = new News(oneNews);
+                    listItems[i] = newses[i].getName();
+                }
+
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+
+            final News[] tempNewses = newses;
+            ArrayAdapter adapter = new ArrayAdapter(mThat,
+                    android.R.layout.simple_list_item_activated_1,
+                    listItems);
+            mListView.setAdapter(adapter);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, final View view,
+                                        int position, long id) {
+                    Intent intent = new Intent(mThat, NewsViewActivity.class);
+                    intent.putExtra(KEY_USERNAME, mUsername);
+                    intent.putExtra(NEWS_KEY, tempNewses[position]);
+                    startActivity(intent);
+
+                }
+            });
+           // mTextView.setText(result);
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 }

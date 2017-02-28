@@ -1,5 +1,6 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import group1.tcss450.uw.edu.bsanews.Model.News;
 import group1.tcss450.uw.edu.bsanews.Model.SaveToDatabase;
@@ -29,7 +32,7 @@ public class NewsViewActivity extends AppCompatActivity {
     /**
      * key for receiving News object.
      */
-    final static String NEWS_KEY = "news";
+    private final static String NEWS_KEY = "news";
     /**
      * key for username.
      */
@@ -47,6 +50,7 @@ public class NewsViewActivity extends AppCompatActivity {
      * hold the webview.
      */
     private WebView mWebView;
+    ProgressBar mProgressBar;
 
     /**
      * onCreate, initialize the fields.
@@ -61,12 +65,30 @@ public class NewsViewActivity extends AppCompatActivity {
 
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
         mNews = (News) getIntent().getSerializableExtra(NEWS_KEY);
-
+        mProgressBar = (ProgressBar) findViewById(R.id.news_progressBar);
         mWebView = (WebView) findViewById(R.id.news_webView);
 
-//        mWebView.loadUrl(mNews.getUrl());
+        //load webpage without opening external browser, and show/hide progress bar
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                mProgressBar.setVisibility(View.VISIBLE);
+                //mWebView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                mProgressBar.setVisibility(View.GONE);
+                mWebView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        mWebView.loadUrl(mNews.getUrl());
+
         // TODO: 2017/2/25 test data 
-        mWebView.loadUrl("https://www.google.com/");
+        //mWebView.loadUrl("https://www.google.com/");
 
     }
 
@@ -103,17 +125,17 @@ public class NewsViewActivity extends AppCompatActivity {
                 task = new SaveToDatabase(this);
 
                 // TODO: 2017/2/25 test data.
-                task.execute(PARTIAL_URL,
-                        mUsername,
-                        mWebView.getUrl(),
-                        "yahoo",
-                        "search engine");
-//                //save the web page to the database.
 //                task.execute(PARTIAL_URL,
 //                        mUsername,
 //                        mWebView.getUrl(),
-//                        mNews.getName(),
-//                        mNews.getDescription());
+//                        "yahoo",
+//                        "search engine");
+                //save the web page to the database.
+                task.execute(PARTIAL_URL,
+                        mUsername,
+                        mWebView.getUrl(),
+                        mNews.getName(),
+                        mNews.getDescription());
                 break;
         }
 

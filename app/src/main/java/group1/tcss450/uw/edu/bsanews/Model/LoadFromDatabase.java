@@ -110,6 +110,7 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
             //Display message from database.
             for (int i = 0; i < newses.length; i++) {
                 mTextView.append(newses[i].getName()+"\n");
+                Log.d("why ",newses[i].getName());
                 mTextView.append(newses[i].getUrl()+"\n");
                 mTextView.append(newses[i].getDescription()+"\n");
                 mTextView.append("==============================\n");

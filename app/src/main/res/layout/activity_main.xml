@@ -41,5 +41,19 @@
         android:layout_height="wrap_content"
         android:hint="Text view"
         android:id="@+id/main_textView"/>
+    <ProgressBar
+        android:id="@+id/main_progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="true"
+        android:visibility="gone"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/News_list_View">
+
+    </ListView>
 
 </LinearLayout>

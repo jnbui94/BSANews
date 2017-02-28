@@ -9,9 +9,19 @@
     tools:context="group1.tcss450.uw.edu.bsanews.NewsViewActivity"
     tools:showIn="@layout/activity_news_view">
 
+    <ProgressBar
+        android:id="@+id/news_progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleLarge"/>
+
     <WebView
         android:id="@+id/news_webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></WebView>
+        android:layout_height="match_parent"
+        android:visibility="gone">
+    </WebView>
 
 </RelativeLayout>
