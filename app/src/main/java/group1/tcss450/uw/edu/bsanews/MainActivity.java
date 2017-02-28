@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private AppCompatActivity mThat;
 
+    private ProgressBar mProgressBar;
+
     /**
      * initialize the contents.
      * @param savedInstanceState
@@ -87,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.main_textView);
         mListView = (ListView) findViewById(R.id.News_list_View);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
+        mProgressBar = (ProgressBar) findViewById(R.id.main_progressBar);
         mThat = this;
+
     }
 
     /**
@@ -128,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
      * sample code provided by instructor.
      */
     private class PostWebServiceTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected String doInBackground(String... strings) {
             if (strings.length != 2) {
@@ -228,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
            // mTextView.setText(result);
-            
+            mProgressBar.setVisibility(View.GONE);
         }
     }
 }
