@@ -28,6 +28,7 @@ import java.net.URI;
 import java.util.ArrayList;
 
 import group1.tcss450.uw.edu.bsanews.Model.News;
+import group1.tcss450.uw.edu.bsanews.Model.NewsListAdapter;
 
 /**
  * this activity provide the main menu.
@@ -220,9 +221,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             final News[] tempNewses = newses;
-            ArrayAdapter adapter = new ArrayAdapter(mThat,
-                    android.R.layout.simple_list_item_activated_1,
-                    listItems);
+            NewsListAdapter adapter = new NewsListAdapter(mThat, newses);
             mListView.setAdapter(adapter);
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
