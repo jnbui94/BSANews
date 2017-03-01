@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_catagory"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="group1.tcss450.uw.edu.bsanews.CatagoryActivity">
+
+    <Spinner
+        android:id="@+id/cat_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
+    <ProgressBar
+        android:layout_below="@+id/cat_spinner"
+        android:id="@+id/cat_progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="true"
+        android:visibility="gone"/>
+    <ListView
+        android:layout_below="@+id/cat_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cat_news_list_View">
+
+    </ListView>
+
+</RelativeLayout>

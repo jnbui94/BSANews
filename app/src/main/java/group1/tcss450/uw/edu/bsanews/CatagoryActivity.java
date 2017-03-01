@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,20 +31,13 @@ import java.util.ArrayList;
 import group1.tcss450.uw.edu.bsanews.Model.News;
 import group1.tcss450.uw.edu.bsanews.Model.NewsListAdapter;
 
-/**
- * this activity provide the main menu.
- * @author John Bui
- */
-public class MainActivity extends AppCompatActivity {
+public class CatagoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
     /**
      * url to connect to our database.
      */
     private static final String mURL
             = "https://api.cognitive.microsoft.com/bing/v5.0/news/";
-    /**
-     * allow the asynctask to change the content.
-     */
-    private TextView mTextView;
     /**
      * keys for connect to external database.
      */
@@ -76,58 +70,40 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatActivity mThat;
 
     private ProgressBar mProgressBar;
+    private Spinner mSpinner;
 
-    /**
-     * initialize the contents.
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mTextView = (TextView) findViewById(R.id.main_textView);
-        mListView = (ListView) findViewById(R.id.News_list_View);
-        mUsername = getIntent().getStringExtra(KEY_USERNAME);
-        mProgressBar = (ProgressBar) findViewById(R.id.main_progressBar);
-        mThat = this;
+        setContentView(R.layout.activity_catagory);
 
+        mSpinner = (Spinner) findViewById(R.id.cat_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
+        mSpinner.setOnItemSelectedListener(this);
+
+        mListView = (ListView) findViewById(R.id.cat_news_list_View);
+        mUsername = getIntent().getStringExtra(KEY_USERNAME);
+        mProgressBar = (ProgressBar) findViewById(R.id.cat_progressBar);
+        mThat = this;
     }
 
-    /**
-     * when a button is clicked.
-     * @param view
-     */
-    public void buttonClicked(View view) {
-        Intent intent;
-        AsyncTask<String, Void, String> task = null;
-        String message = ((TextView) findViewById(R.id.main_textView)).getText().toString();
-        switch (view.getId()) {
-            case R.id.Head:
-                task = new PostWebServiceTask();
-                task.execute(mURL, message);
-                break;
-            case R.id.main_loadBtn:
-                intent = new Intent(this, LoadActivity.class);
-                intent.putExtra(KEY_USERNAME, mUsername);
-                startActivity(intent);
-                break;
-//            case R.id.postbutton:
-//                task = new PostWebServiceTask();
-//                break;
-            case R.id.main_saveBtn:
-                // TODO: 3/1/2017 remove this
-                intent = new Intent(this, SaveActivity.class);
-                // TODO: 2017/2/25 test newsViewActivity
-                intent = new Intent(this, NewsViewActivity.class);
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String option = (String) parent.getAdapter().getItem(position);
+        // TODO: 3/1/2017 take this out later.
+        Toast.makeText(this,
+                "category: " + option,
+                Toast.LENGTH_SHORT).show();
+        AsyncTask<String, Void, String> task = new PostWebServiceTask();
+            task.execute(mURL, option);
+    }
 
-                intent = new Intent(this, CatagoryActivity.class);
-                intent.putExtra(KEY_USERNAME, mUsername);
-                startActivity(intent);
-                break;
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
-            default:
-                throw new IllegalStateException("Not implemented");
-        }
     }
 
     /**
@@ -156,6 +132,10 @@ public class MainActivity extends AppCompatActivity {
 
                 URIBuilder builder = new URIBuilder(mURL);
 
+                //for catagory
+                builder.setParameter("Category", strings[1]);
+                //set 50 newses
+                builder.setParameter("count", "50");
 
                 URI uri = builder.build();
                 HttpGet request = new HttpGet(uri);
@@ -185,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
             //String[] listItems = new String[0];
             News news = null;
-           
+
 // Something wrong with the network or the URL.
             if (result.startsWith("Unable to")) {
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG)
@@ -237,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-           // mTextView.setText(result);
+            // mTextView.setText(result);
             mProgressBar.setVisibility(View.GONE);
         }
     }

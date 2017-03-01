@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -100,7 +101,10 @@ public class NewsViewActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.option_menu, menu);
         //mMenu = menu;
-
+        if (mUsername == null){
+            MenuItem item = menu.findItem(R.id.save_menu_button);
+            item.setVisible(false);
+        }
         return true;
     }
 
