@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(String result) {
-            String[] listItems = new String[0];
+            //String[] listItems = new String[0];
             News news = null;
            
 // Something wrong with the network or the URL.
@@ -208,12 +208,12 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject resultObj = new JSONObject(result);
                 JSONArray value = resultObj.getJSONArray("value");
                 newses = new News[value.length()];
-                listItems = new String[value.length()];
+                //listItems = new String[value.length()];
                 for (int i = 0; i < value.length(); i++){
                     JSONObject oneNews = (JSONObject) value.get(i);
                     Log.d("LoadFromDB one", oneNews.getString("url"));
                     newses[i] = new News(oneNews);
-                    listItems[i] = newses[i].getName();
+                    //listItems[i] = newses[i].getName();
                 }
 
             } catch (JSONException e){

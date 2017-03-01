@@ -1,8 +1,12 @@
 package group1.tcss450.uw.edu.bsanews.Model;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import group1.tcss450.uw.edu.bsanews.NewsViewActivity;
+import group1.tcss450.uw.edu.bsanews.R;
+
 /**
  * provide service for loading news from database.
  * template provided by instructor.
@@ -30,6 +37,11 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
      * get the activity using this class for showing Toast Msg.
      */
     private AppCompatActivity mActivity;
+    /**
+     * key for receiving News object.
+     */
+    private final static String NEWS_KEY = "news";
+
 
     private TextView mTextView;
 
@@ -108,13 +120,28 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
 
             // TODO: 2017/2/25 will send back a array of News <newses>.
             //Display message from database.
-            for (int i = 0; i < newses.length; i++) {
-                mTextView.append(newses[i].getName()+"\n");
-                Log.d("why ",newses[i].getName());
-                mTextView.append(newses[i].getUrl()+"\n");
-                mTextView.append(newses[i].getDescription()+"\n");
-                mTextView.append("==============================\n");
-            }
+//            for (int i = 0; i < newses.length; i++) {
+//                mTextView.append(newses[i].getName()+"\n");
+//                Log.d("why ",newses[i].getName());
+//                mTextView.append(newses[i].getUrl()+"\n");
+//                mTextView.append(newses[i].getDescription()+"\n");
+//                mTextView.append("==============================\n");
+//            }
+            final News[] tempNewses = newses;
+            NewsListAdapter adapter = new NewsListAdapter(mActivity, newses);
+            ListView mListView = (ListView) mActivity.findViewById(R.id.load_ListView);
+            mListView.setAdapter(adapter);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, final View view,
+                                        int position, long id) {
+                    Intent intent = new Intent(mActivity, NewsViewActivity.class);
+                    //intent.putExtra(KEY_USERNAME, mUsername);
+                    intent.putExtra(NEWS_KEY, tempNewses[position]);
+                    mActivity.startActivity(intent);
+
+                }
+            });
         }
 
     }

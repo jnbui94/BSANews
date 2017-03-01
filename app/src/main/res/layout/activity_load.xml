@@ -20,5 +20,10 @@
             android:id="@+id/load_TextView"
             android:text="load"/>
     </ScrollView>
+    <ListView
+        android:id="@+id/load_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
 
 </RelativeLayout>
