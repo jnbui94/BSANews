@@ -76,7 +76,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center">
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remember_me"
+                    android:textSize="20sp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@android:color/white"
 
+                    android:id="@+id/remember_me"/>
                 <Button
                     android:id="@+id/email_sign_in_button"
                     style="?android:textAppearanceSmall"
