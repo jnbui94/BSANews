@@ -36,26 +36,6 @@ public class News implements Serializable {
 
     }
 
-
-//    public static ArrayList<News> getNews(JSONObject json) {
-//        final ArrayList<News> recipeList = new ArrayList<>();
-//        try {
-//            News news = new News(json);
-//            news.mName = json.getString("name");
-//            news.mDescription = json.getString("description");
-//            if (json.has("image")) {
-//                JSONObject temp = json.getJSONObject("image");
-//                temp = temp.getJSONObject("thumbnail");
-//                news.mImageUrl = temp.getString("contentUrl");
-//            }
-//            news.mUrl = json.getString("url");
-//
-//            recipeList.add(news);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return recipeList;
-//    }
     public String getName(){return mName;}
     public String getUrl() {return mUrl;}
     public String getDescription() {return mDescription;}

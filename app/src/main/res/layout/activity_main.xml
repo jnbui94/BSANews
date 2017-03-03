@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/main_saveBtn"
             android:onClick="buttonClicked"
-            android:text="save"
+            android:text="@string/Categories_button"
             android:layout_weight="1"/>
         <Button
             android:layout_width="wrap_content"

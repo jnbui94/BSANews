@@ -18,7 +18,10 @@
     </string>
     <string name="load_button">Load Saved</string>
     <string name="head_button">Top Stories</string>
+    <string name="Categories_button">Categories</string>
     <string name="Category_button">Sport</string>
+    <string name="SHARED_PREFS">edu.uw.tcss450.PREFS</string>
+    <string name="UserName">colorstring</string>
     <string name="title_activity_news_view">NewsViewActivity</string>
     <string name="remember_me">Remember Me</string>
     <string-array name="category_options">

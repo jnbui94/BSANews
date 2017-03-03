@@ -75,20 +75,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btn.setOnClickListener(this);
 
     }
-
-    /**
-     * when login button clicked, or register button clicked.
-     * @param view
-     */
-    /*public void loginClicked(View view){
-        mSignInBtn = (Button) findViewById(R.id.email_sign_in_button);
-        switch(view.getId()){
-            case R.id.email_sign_in_button:
-                attemptLogin(view);
-                break;
-        }
-
-    }*/
     /**
      * Checking check Box if checked or not
      */

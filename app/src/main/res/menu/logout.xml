@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="group1.tcss450.uw.edu.bsanews.MainActivity">
+
+    <item
+        android:id="@+id/Log_out_item"
+        android:title="Log Out"
+        android:visible="true"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_lock_power_off"/>
+
+</menu>
