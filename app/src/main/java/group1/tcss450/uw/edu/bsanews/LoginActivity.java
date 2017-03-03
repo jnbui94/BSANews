@@ -54,7 +54,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * store the user name for passing to another activity.
      */
     private String mUsername;
-    private boolean temp;
+    /**
+     * Check variable for save log in.
+     */
+    private boolean mTemp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * This method will save to sharepref
      */
     public void saveToSharePref(String theUsername){
-        if (isCheck()&&temp) {
+        if (isCheck()&& mTemp) {
             mPrefs.edit().putString(getString(R.string.UserName),theUsername).apply();
         }
     }
@@ -246,7 +249,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //if the username and password matches a data in the db.
                 Toast.makeText(getApplicationContext(),"login success",Toast.LENGTH_SHORT).show();
                 mSignInBtn.setEnabled(true);
-                temp = true;
+                mTemp = true;
                 saveToSharePref(mUsername);
                 goToMainActivity();
             }
