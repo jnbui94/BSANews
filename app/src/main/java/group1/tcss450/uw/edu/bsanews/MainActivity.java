@@ -1,10 +1,15 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.ArrayList;
 
@@ -49,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private static  final String mKey = "3abb779da1e740bfab3f95c7fed2475c";
     private static final String mKey1 = "cbfd463af4de4614af5482ce40870522";
-
+    /**
+     * SharePref variable
+     */
+    private SharedPreferences mPrefs;
     /**
      * the key for getting the username.
      */
@@ -87,12 +96,45 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mTextView = (TextView) findViewById(R.id.main_textView);
         mListView = (ListView) findViewById(R.id.News_list_View);
+        mPrefs = getSharedPreferences(getString(R.string.SHARED_PREFS), Context.MODE_PRIVATE);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
         mProgressBar = (ProgressBar) findViewById(R.id.main_progressBar);
         mThat = this;
-
+        AsyncTask<String, Void, String> task = null;
+        String message = ((TextView) findViewById(R.id.main_textView)).getText().toString();
+        task = new PostWebServiceTask();
+        task.execute(mURL, message);
     }
+    public void logout() {
+        mPrefs.edit().putString(getString(R.string.UserName),"0").apply();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+    /**
+     * create option menu.
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.logout, menu);
+        return true;
+    }
+    /**
+     * LogOut when LogOut menu is called.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.Log_out_item) {
+            logout();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     /**
      * when a button is clicked.
      * @param view
@@ -176,14 +218,14 @@ public class MainActivity extends AppCompatActivity {
             }
             catch (Exception e)
             {
-                //Log.d("exception ",e.getMessage());
+
                 String result = "Unable to connect, Reason: " + e.getMessage();
                 return e.getMessage();
             }
         }
         @Override
         protected void onPostExecute(String result) {
-            //String[] listItems = new String[0];
+
             News news = null;
            
 // Something wrong with the network or the URL.
@@ -192,19 +234,6 @@ public class MainActivity extends AppCompatActivity {
                         .show();
                 return;
             }
-//            try {
-//                JSONObject jsonObject = new JSONObject(result);
-////                News news = new News(jsonObject);
-//                newsList = news.getNews(jsonObject);
-//
-//                listItems = new String[newsList.size()];
-//                for(int i = 0; i < newsList.size(); i++){
-//                    News temp = newsList.get(i);
-//                    listItems[i] = temp.getName();
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
 
             News[] newses = new News[0];
             try {
@@ -237,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-           // mTextView.setText(result);
             mProgressBar.setVisibility(View.GONE);
         }
     }
