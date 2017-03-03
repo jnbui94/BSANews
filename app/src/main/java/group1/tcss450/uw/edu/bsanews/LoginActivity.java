@@ -1,12 +1,15 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,23 +39,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private static final String KEY_USERNAME = "USERNAME";
     /**
+     * SharePref variable
+     */
+    private SharedPreferences mPrefs;
+    /**
      * for inner class to enable the button.
      */
     private Button mSignInBtn;
     /**
+     * Variable to keep track of checkBox
+     */
+    private boolean mCheck;
+    /**
      * store the user name for passing to another activity.
      */
     private String mUsername;
+    private boolean temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mPrefs = getSharedPreferences(getString(R.string.SHARED_PREFS), Context.MODE_PRIVATE);
+        mUsername = mPrefs.getString(getString(R.string.UserName),"0");
+        if (!mUsername.equals("0")) {
+            goToMainActivity();
+        }
         Button btn = (Button) findViewById(R.id.email_sign_in_button);
         btn.setOnClickListener(this);
         mSignInBtn = btn;
         btn = (Button) findViewById(R.id.login_registerBtn);
         btn.setOnClickListener(this);
+
     }
 
     /**
@@ -69,8 +87,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }*/
     /**
-     * Checking check Box
+     * Checking check Box if checked or not
      */
+    private boolean isCheck(){
+        CheckBox check = (CheckBox) findViewById(R.id.remember_me);
+        if(check.isChecked()) { return mCheck = true;}
+        return mCheck;
+    }
+    /**
+     * This method will save to sharepref
+     */
+    public void saveToSharePref(String theUsername){
+        if (isCheck()&&temp) {
+            mPrefs.edit().putString(getString(R.string.UserName),theUsername).apply();
+        }
+    }
     /**
      * When sign in clicked or register clicked.
      * @param view
@@ -140,6 +171,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mSignInBtn.setEnabled(false);
             task = new PostWebServiceTask();
             task.execute(PARTIAL_URL, username, password);
+
         }
     }
 
@@ -214,6 +246,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //if the username and password matches a data in the db.
                 Toast.makeText(getApplicationContext(),"login success",Toast.LENGTH_SHORT).show();
                 mSignInBtn.setEnabled(true);
+                temp = true;
+                saveToSharePref(mUsername);
                 goToMainActivity();
             }
 
