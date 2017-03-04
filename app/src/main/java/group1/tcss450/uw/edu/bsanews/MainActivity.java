@@ -169,6 +169,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
+            case R.id.main_loadLocalBtn:
+                intent = new Intent(this, LoadFromLocalActivity.class);
+                intent.putExtra(KEY_USERNAME, mUsername);
+                startActivity(intent);
+                break;
+
             default:
                 throw new IllegalStateException("Not implemented");
         }

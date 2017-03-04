@@ -12,8 +12,10 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import group1.tcss450.uw.edu.bsanews.Model.News;
+import group1.tcss450.uw.edu.bsanews.Model.NewsDB;
 import group1.tcss450.uw.edu.bsanews.Model.SaveToDatabase;
 
 /**
@@ -36,6 +38,11 @@ public class NewsViewActivity extends AppCompatActivity {
      * key for username.
      */
     private static final String KEY_USERNAME = "USERNAME";
+
+    /**
+     * key for db
+     */
+    private static final String KEY_DB = "DB";
 
     /**
      * hold News object
@@ -139,10 +146,29 @@ public class NewsViewActivity extends AppCompatActivity {
                         mNews.getName(),
                         mNews.getDescription());
                 break;
+            case R.id.save_to_local_menu_button:
+
+                if (saveToSqlite(mNews.getName(), mWebView.getUrl(), mNews.getDescription())){
+                    Toast.makeText(this, "Save locally Success.", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(this, "Save locally failed.", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
         }
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean saveToSqlite(String name, String url, String desc) {
+
+        NewsDB courseDB = (NewsDB) getIntent().getSerializableExtra(KEY_DB);
+
+        if (courseDB == null) {
+            courseDB = new NewsDB(this);
+        }
+        return courseDB.insertNews(name, url, desc);
     }
 
 }

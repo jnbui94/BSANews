@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_load"
+    android:id="@+id/activity_load_from_local"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="group1.tcss450.uw.edu.bsanews.LoadActivity">
+    tools:context="group1.tcss450.uw.edu.bsanews.LoadFromLocalActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,11 +13,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/load_TextView"
+            android:id="@+id/load_from_local_TextView"
             android:text="load"/>
     </ScrollView>
     <ListView
-        android:id="@+id/load_ListView"
+        android:id="@+id/load_from_local_ListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>

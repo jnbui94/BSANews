@@ -35,8 +35,8 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpclient-android', version: '4.3.5.1'
 
     //card and
-    compile 'com.android.support:cardview-v7:25.0.+'
-    compile 'com.android.support:recyclerview-v7:25.0.+'
+//    compile 'com.android.support:cardview-v7:25.0.+'
+//    compile 'com.android.support:recyclerview-v7:25.0.+'
     //picasso for loading image from url
     compile 'com.squareup.picasso:picasso:2.5.0'
     //

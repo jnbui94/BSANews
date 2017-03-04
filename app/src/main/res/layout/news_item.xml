@@ -3,6 +3,8 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="3dp"
+    android:minHeight="100dp"
+    android:maxHeight="100dp"
     >
 
     <ImageView
@@ -26,14 +28,16 @@
             android:layout_height="wrap_content"
             android:text="this is a title"
             android:textAppearance="@android:style/TextAppearance.Medium"
-            android:maxLines="2"/>
+            android:maxLines="2"
+            android:ellipsize="end"/>
         <TextView
             android:id="@+id/news_item_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:text="this is a desc"
-            android:textAppearance="@android:style/TextAppearance.Small"/>
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:ellipsize="end"/>
 
     </LinearLayout>
 

@@ -20,9 +20,10 @@
     <string name="head_button">Top Stories</string>
     <string name="Categories_button">Categories</string>
     <string name="Category_button">Sport</string>
+    <string name="load_local_button">Local Saved</string>
     <string name="SHARED_PREFS">edu.uw.tcss450.PREFS</string>
     <string name="UserName">colorstring</string>
-    <string name="title_activity_news_view">NewsViewActivity</string>
+    <string name="title_activity_news_view">BSA News</string>
     <string name="remember_me">Remember Me</string>
     <string-array name="category_options">
         <item>Business</item>
@@ -56,4 +57,23 @@
         <item>World_Europe</item>
         <item>World_MiddleEast</item>
     </string-array>
+
+    <string-array name="DB_COLUMN_NAMES">
+        <item>name</item>
+        <item>url</item>
+        <item>description</item>
+    </string-array>
+
+    <string name="CREATE_NEWS_SQL">
+        CREATE TABLE Bookmarks
+        (url text,
+         name text,
+         description text)
+    </string>
+    <string name="DROP_NEWS_SQL">
+        DROP TABLE IF EXIST Bookmarks
+    </string>
+    <string name="DB_NAME">News.db</string>
+    <string name="TABLE_NAME">Bookmarks</string>
+
 </resources>
