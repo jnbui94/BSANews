@@ -3,17 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="group1.tcss450.uw.edu.bsanews.NewsViewActivity">
 
-
-    <!--TODO put "save" in string resource-->
     <item
         android:id="@+id/save_menu_button"
-        android:title="save"
+        android:title="@string/save"
         android:visible="true"
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_save"/>
     <item
         android:id="@+id/save_to_local_menu_button"
-        android:title="save locally"
+        android:title="@string/local_save"
         android:visible="true"
         android:icon="@android:drawable/ic_menu_save"
         />

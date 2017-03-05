@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -181,6 +182,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         private final String SERVICE = "_login.php";
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            ProgressBar pb = (ProgressBar) findViewById(R.id.login_progress);
+            pb.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected String doInBackground(String... strings) {
             if (strings.length != 3) {
                 throw new IllegalArgumentException("Three String arguments required.");
@@ -239,6 +247,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 saveToSharePref(mUsername);
                 goToMainActivity();
             }
+            ProgressBar pb = (ProgressBar) findViewById(R.id.login_progress);
+            pb.setVisibility(View.GONE);
 
         }
 

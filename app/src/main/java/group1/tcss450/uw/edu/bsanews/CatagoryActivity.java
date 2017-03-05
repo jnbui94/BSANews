@@ -31,6 +31,10 @@ import java.util.ArrayList;
 import group1.tcss450.uw.edu.bsanews.Model.News;
 import group1.tcss450.uw.edu.bsanews.Model.NewsListAdapter;
 
+/**
+ * activity with a spinner allows user to choose a category.
+ * @author Shao-han wang
+ */
 public class CatagoryActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     /**
@@ -93,9 +97,8 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String option = (String) parent.getAdapter().getItem(position);
-        // TODO: 3/1/2017 take this out later.
         Toast.makeText(this,
-                "category: " + option,
+                "Category: " + option,
                 Toast.LENGTH_SHORT).show();
         AsyncTask<String, Void, String> task = new PostWebServiceTask();
             task.execute(mURL, option);

@@ -15,10 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import group1.tcss450.uw.edu.bsanews.R;
-/**
- * Created by user on 2017/3/4.
- */
 
+/**
+ * local database.
+ * @author Shao-han wang
+ */
 public class NewsDB implements Serializable{
     public static final int DB_VERSION = 1;
     private final String DB_NAME;

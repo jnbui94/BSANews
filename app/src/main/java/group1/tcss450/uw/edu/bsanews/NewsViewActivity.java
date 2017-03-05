@@ -93,8 +93,6 @@ public class NewsViewActivity extends AppCompatActivity {
 
         mWebView.loadUrl(mNews.getUrl());
 
-        // TODO: 2017/2/25 test data 
-        //mWebView.loadUrl("https://www.google.com/");
 
     }
 
@@ -128,18 +126,8 @@ public class NewsViewActivity extends AppCompatActivity {
             case R.id.save_menu_button:
                 AsyncTask<String, Void, String> task;
 
-                // TODO: 2017/2/25 test savetodatabase class.
-                //task = new SaveActivity.PostWebServiceTask();
-
                 task = new SaveToDatabase(this);
 
-                // TODO: 2017/2/25 test data.
-//                task.execute(PARTIAL_URL,
-//                        mUsername,
-//                        mWebView.getUrl(),
-//                        "yahoo",
-//                        "search engine");
-                //save the web page to the database.
                 task.execute(PARTIAL_URL,
                         mUsername,
                         mWebView.getUrl(),

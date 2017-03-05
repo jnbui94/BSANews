@@ -36,20 +36,20 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="Main Menu" />
+            android:label="@string/main_menu" />
         <activity android:name=".RegisterActivity"
-            android:label="Register"/>
+            android:label="@string/register"/>
         <activity android:name=".LoadActivity"
-            android:label="Load Database"/>
+            android:label="@string/load_saved"/>
         <activity android:name=".SaveActivity" />
         <activity
             android:name=".NewsViewActivity"
             android:label="@string/title_activity_news_view"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CatagoryActivity"
-            android:label="Categories"/>
+            android:label="@string/Categories_button"/>
         <activity android:name=".LoadFromLocalActivity"
-            android:label="Load Locally"></activity>
+            android:label="@string/load_local_button"></activity>
     </application>
 
 </manifest>

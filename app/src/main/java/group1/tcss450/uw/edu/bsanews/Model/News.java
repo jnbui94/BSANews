@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
+ * News object
  * Created by jnbui on 2/22/2017.
  */
 
@@ -19,10 +20,22 @@ public class News implements Serializable {
     private String mDescription;
     private String mImageUrl;
 
+    /**
+     * takes in a jsonobject.
+     * @param json
+     * @throws JSONException
+     */
     public News(JSONObject json)  throws JSONException{
         create(json);
 //        getNews(json);
     }
+
+    /**
+     * parse the jsonobject.
+     * include name, url, description, image url.
+     * @param json
+     * @throws JSONException
+     */
     private void create(JSONObject json) throws JSONException{
             mName = json.getString("name");
             mUrl = json.getString("url");

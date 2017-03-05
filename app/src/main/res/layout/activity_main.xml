@@ -6,44 +6,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="group1.tcss450.uw.edu.bsanews.MainActivity">
-    <LinearLayout
+    <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/main_loadBtn"
-            android:text="@string/load_button"
-            android:onClick="buttonClicked"
-            android:layout_weight="1"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/main_saveBtn"
-            android:onClick="buttonClicked"
-            android:text="@string/Categories_button"
-            android:layout_weight="1"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/head_button"
-            android:id="@+id/Head"
-            android:onClick="buttonClicked"
-            android:layout_weight="1"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/load_local_button"
-            android:id="@+id/main_loadLocalBtn"
-            android:onClick="buttonClicked"
-            android:layout_weight="1"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Text view"
-        android:id="@+id/main_textView"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/head_button"
+                android:id="@+id/Head"
+                android:onClick="buttonClicked"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_saveBtn"
+                android:onClick="buttonClicked"
+                android:text="@string/Categories_button"
+                android:layout_weight="1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/main_loadBtn"
+                android:text="@string/load_button"
+                android:onClick="buttonClicked"
+                android:layout_weight="1"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/load_local_button"
+                android:id="@+id/main_loadLocalBtn"
+                android:onClick="buttonClicked"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <ProgressBar
         android:id="@+id/main_progressBar"
         android:layout_width="match_parent"

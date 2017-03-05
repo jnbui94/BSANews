@@ -45,16 +45,13 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
 
     private TextView mTextView;
 
-    // TODO: 2017/2/25 take out textview later, this class should return a array of News. 
     /**
      * constructor, takes a activity as argument for showing toast,
      * and textView for showing result.
      * @param activity
-     * @param textView
      */
-    public LoadFromDatabase(AppCompatActivity activity, TextView textView){
+    public LoadFromDatabase(AppCompatActivity activity){
         mActivity = activity;
-        mTextView = textView;
     }
 
     @Override
@@ -118,15 +115,6 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-            // TODO: 2017/2/25 will send back a array of News <newses>.
-            //Display message from database.
-//            for (int i = 0; i < newses.length; i++) {
-//                mTextView.append(newses[i].getName()+"\n");
-//                Log.d("why ",newses[i].getName());
-//                mTextView.append(newses[i].getUrl()+"\n");
-//                mTextView.append(newses[i].getDescription()+"\n");
-//                mTextView.append("==============================\n");
-//            }
             final News[] tempNewses = newses;
             NewsListAdapter adapter = new NewsListAdapter(mActivity, newses);
             ListView mListView = (ListView) mActivity.findViewById(R.id.load_ListView);

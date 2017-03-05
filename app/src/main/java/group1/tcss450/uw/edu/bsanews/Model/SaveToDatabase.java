@@ -50,7 +50,6 @@ public class SaveToDatabase extends AsyncTask<String, Void, String> {
             urlConnection.setDoOutput(true);
             OutputStreamWriter wr = new OutputStreamWriter(urlConnection.getOutputStream());
 
-            // TODO: 2017/2/25
             String data = URLEncoder.encode("my_name", "UTF-8")
                     + "=" + URLEncoder.encode(strings[1], "UTF-8")
                     + "&" + URLEncoder.encode("my_url", "UTF-8")
@@ -77,7 +76,7 @@ public class SaveToDatabase extends AsyncTask<String, Void, String> {
                 urlConnection.disconnect();
         }
 
-        // TODO: 2017/2/25
+
         Log.d("SaveToDatabase", "response: " + response);
 
         return response;

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">BSA News</string>
     <string name="title_activity_login">main page</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="register">Register</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -19,7 +21,6 @@
     <string name="load_button">Load Saved</string>
     <string name="head_button">Top Stories</string>
     <string name="Categories_button">Categories</string>
-    <string name="Category_button">Sport</string>
     <string name="load_local_button">Local Saved</string>
     <string name="SHARED_PREFS">edu.uw.tcss450.PREFS</string>
     <string name="UserName">colorstring</string>
@@ -75,5 +76,8 @@
     </string>
     <string name="DB_NAME">News.db</string>
     <string name="TABLE_NAME">Bookmarks</string>
+    <string name="load_saved">Load Saved</string>
+    <string name="save">Save</string>
+    <string name="local_save">Save locally</string>
 
 </resources>

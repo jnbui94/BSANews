@@ -94,16 +94,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextView = (TextView) findViewById(R.id.main_textView);
         mListView = (ListView) findViewById(R.id.News_list_View);
         mPrefs = getSharedPreferences(getString(R.string.SHARED_PREFS), Context.MODE_PRIVATE);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
         mProgressBar = (ProgressBar) findViewById(R.id.main_progressBar);
         mThat = this;
         AsyncTask<String, Void, String> task = null;
-        String message = ((TextView) findViewById(R.id.main_textView)).getText().toString();
         task = new PostWebServiceTask();
-        task.execute(mURL, message);
+        task.execute(mURL);
     }
     public void logout() {
         mPrefs.edit().putString(getString(R.string.UserName),"0").apply();
@@ -144,26 +142,17 @@ public class MainActivity extends AppCompatActivity {
     public void buttonClicked(View view) {
         Intent intent;
         AsyncTask<String, Void, String> task = null;
-        String message = ((TextView) findViewById(R.id.main_textView)).getText().toString();
         switch (view.getId()) {
             case R.id.Head:
                 task = new PostWebServiceTask();
-                task.execute(mURL, message);
+                task.execute(mURL);
                 break;
             case R.id.main_loadBtn:
                 intent = new Intent(this, LoadActivity.class);
                 intent.putExtra(KEY_USERNAME, mUsername);
                 startActivity(intent);
                 break;
-//            case R.id.postbutton:
-//                task = new PostWebServiceTask();
-//                break;
             case R.id.main_saveBtn:
-                // TODO: 3/1/2017 remove this
-                intent = new Intent(this, SaveActivity.class);
-                // TODO: 2017/2/25 test newsViewActivity
-                intent = new Intent(this, NewsViewActivity.class);
-
                 intent = new Intent(this, CatagoryActivity.class);
                 intent.putExtra(KEY_USERNAME, mUsername);
                 startActivity(intent);
@@ -192,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
-            if (strings.length != 2) {
+            if (strings.length != 1) {
                 throw new IllegalArgumentException("Two String arguments required.");
             }
             //String response = "";

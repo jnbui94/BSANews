@@ -12,6 +12,10 @@ import group1.tcss450.uw.edu.bsanews.Model.News;
 import group1.tcss450.uw.edu.bsanews.Model.NewsDB;
 import group1.tcss450.uw.edu.bsanews.Model.NewsListAdapter;
 
+/**
+ * load a list of news from local database.
+ * @author SHoa-han wang.
+ */
 public class LoadFromLocalActivity extends AppCompatActivity {
 
 
