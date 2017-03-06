@@ -21,14 +21,36 @@ import group1.tcss450.uw.edu.bsanews.R;
  * @author Shao-han wang
  */
 public class NewsDB implements Serializable{
+    /**
+     * Database version.
+     */
     public static final int DB_VERSION = 1;
+    /**
+     * DB name.
+     */
     private final String DB_NAME;
+    /**
+     * table.
+     */
     private final String News_TABLE;
+    /**
+     * Name of column.
+     */
     private final String[] COLUMN_NAMES;
     private Context mContext;
+    /**
+     * helper variable
+     */
     private NewsDBHelper mNewsDBHelper;
+    /**
+     * SQL variable
+     */
     private SQLiteDatabase mSQLiteDatabase;
 
+    /**
+     * public constructor.
+     * @param context
+     */
     public NewsDB(Context context){
         COLUMN_NAMES = context.getResources().getStringArray(R.array.DB_COLUMN_NAMES);
         DB_NAME = context.getString(R.string.DB_NAME);
@@ -84,6 +106,10 @@ public class NewsDB implements Serializable{
         mSQLiteDatabase.close();
     }
 
+    /**
+     * Get bookmark, get news from DB.
+     * @return
+     */
     public News[] getBookmarks(){
 
         Cursor c = mSQLiteDatabase.query(
@@ -113,12 +139,26 @@ public class NewsDB implements Serializable{
         return (News[]) list.toArray(new News[list.size()]);
     }
 
+    /**
+     * Inner helper class to create and upgrade SQL.
+     */
     class NewsDBHelper extends SQLiteOpenHelper{
-
+        /**
+         * Create new table in DB
+         */
         private final String CREATE_NEWS_SQL;
-
+        /**
+         * Drop table of exist.
+         */
         private final String DROP_NEWS_SQL;
 
+        /**
+         * public constructor to add or drop table in DB.
+         * @param context
+         * @param name
+         * @param factory
+         * @param version
+         */
         public NewsDBHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
             super(context, name, factory, version);
             CREATE_NEWS_SQL = context.getString(R.string.CREATE_NEWS_SQL);

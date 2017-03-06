@@ -15,9 +15,21 @@ import java.util.ArrayList;
  */
 
 public class News implements Serializable {
+    /**
+     * Name of news from Json.
+     */
     private String mName;
+    /**
+     * Url of news JsonObject.
+     */
     private String mUrl;
+    /**
+     * Description of news.
+     */
     private String mDescription;
+    /**
+     * Image URL.
+     */
     private String mImageUrl;
 
     /**
@@ -49,8 +61,23 @@ public class News implements Serializable {
 
     }
 
+    /**
+     * @return name of news.
+     */
     public String getName(){return mName;}
+
+    /**
+     * @return URl of news.
+     */
     public String getUrl() {return mUrl;}
+
+    /**
+     * @return description of news
+     */
     public String getDescription() {return mDescription;}
+
+    /**
+     * @return image URL
+     */
     public String getImageUrl() {return mImageUrl;}
 }

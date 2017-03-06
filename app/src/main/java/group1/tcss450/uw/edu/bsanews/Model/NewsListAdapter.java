@@ -19,7 +19,13 @@ import group1.tcss450.uw.edu.bsanews.R;
  * @author Aygun Avazova
  */
 public class NewsListAdapter extends BaseAdapter{
+    /**
+     * Context variable
+     */
     private Context mContext;
+    /**
+     * Layout inflator to inflate layout.
+     */
     private LayoutInflater mInflater;
     /**
      * List of Newses.
@@ -39,21 +45,40 @@ public class NewsListAdapter extends BaseAdapter{
 
     }
 
+    /**
+     * @return length of news.
+     */
     @Override
     public int getCount() {
         return mNewses.length;
     }
 
+    /**
+     *
+     * @param position position of news.
+     * @return news of obect of a particular position.
+     */
     @Override
     public Object getItem(int position) {
         return mNewses[position];
     }
 
+    /**
+     * @param position given position
+     * @return
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * get View.
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         News news = mNewses[position];
@@ -66,8 +91,6 @@ public class NewsListAdapter extends BaseAdapter{
         desc.setText(news.getDescription());
         //use Picaso to load image.
         Picasso.with(mContext).load(news.getImageUrl()).placeholder(R.mipmap.ic_launcher).into(image);
-
-
 
         return row;
     }
