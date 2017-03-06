@@ -125,6 +125,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(LOGIN_USERNAME ,mUsername);
         startActivity(intent);
+        finish();
     }
 
     /**
