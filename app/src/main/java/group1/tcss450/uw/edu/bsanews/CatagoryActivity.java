@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -72,8 +74,13 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
      * allow async task to access the activity.
      */
     private AppCompatActivity mThat;
-
+    /**
+     * Progress bar.
+     */
     private ProgressBar mProgressBar;
+    /**
+     * Spinner for Categories.
+     */
     private Spinner mSpinner;
 
     @Override
@@ -108,7 +115,41 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+    /**
+     * create option menu.
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home_button, menu);
+        return true;
+    }
 
+    /**
+     * LogOut when LogOut menu is called.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.Return_home) {
+            homeActivity();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * This method will call the home activity.
+     */
+    private void homeActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(KEY_USERNAME,mUsername);
+        startActivity(intent);
+    }
     /**
      * sample code provided by instructor.
      */

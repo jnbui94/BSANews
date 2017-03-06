@@ -1,5 +1,6 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -143,12 +144,31 @@ public class NewsViewActivity extends AppCompatActivity {
                 }
 
                 break;
+            case R.id.news_view_home:
+                    homeActivity();
+                break;
         }
 
 
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method will bring back the home Activity.
+     */
+    private void homeActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(KEY_USERNAME,mUsername);
+        startActivity(intent);
+    }
+
+    /**
+     * This method will save to device database.
+     * @param name
+     * @param url
+     * @param desc
+     * @return
+     */
     private boolean saveToSqlite(String name, String url, String desc) {
 
         NewsDB courseDB = (NewsDB) getIntent().getSerializableExtra(KEY_DB);

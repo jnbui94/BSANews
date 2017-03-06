@@ -1,8 +1,11 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,5 +48,39 @@ public class LoadActivity extends AppCompatActivity {
 
         task.execute(PARTIAL_URL, mUsername);
     }
+    /**
+     * create option menu.
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home_button, menu);
+        return true;
+    }
 
+    /**
+     * LogOut when LogOut menu is called.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.Return_home) {
+            homeActivity();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * This method will bring main activity to the foreground.
+     */
+    private void homeActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(KEY_USERNAME,mUsername);
+        startActivity(intent);
+    }
 }

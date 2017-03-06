@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="group1.tcss450.uw.edu.bsanews.LoadActivity">
+
+    <item
+        android:id="@+id/Return_home"
+        android:title="Home"
+        android:visible="true"
+        app:showAsAction="always"
+        />
+
+</menu>

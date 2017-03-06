@@ -103,12 +103,16 @@ public class MainActivity extends AppCompatActivity {
         task = new PostWebServiceTask();
         task.execute(mURL);
     }
+
+    /**
+     * This method will log out and delete sharedPref.
+     */
     public void logout() {
         mPrefs.edit().putString(getString(R.string.UserName),"0").apply();
         Intent intent = new Intent(this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-
+        finish();
     }
     /**
      * create option menu.
@@ -137,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
     /**
      * when a button is clicked.
-     * @param view
+     * @param view Object.
      */
     public void buttonClicked(View view) {
         Intent intent;

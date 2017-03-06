@@ -7,7 +7,7 @@
         android:id="@+id/save_menu_button"
         android:title="@string/save"
         android:visible="true"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@android:drawable/ic_menu_save"/>
     <item
         android:id="@+id/save_to_local_menu_button"
@@ -15,5 +15,11 @@
         android:visible="true"
         android:icon="@android:drawable/ic_menu_save"
         />
+    <item
+        android:id="@+id/news_view_home"
+        android:orderInCategory="100"
+        android:title="Home"
+
+        app:showAsAction="collapseActionView" />
 
 </menu>
