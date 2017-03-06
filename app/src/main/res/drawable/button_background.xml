@@ -3,7 +3,7 @@
 
     <!--pressed color-->
     <item android:state_pressed="true"
-        android:drawable="@color/colorRegisterPressed"/>
+        android:drawable="@android:color/background_dark"/>
     <!--default color-->
     <item android:drawable="@color/colorRegister"/>
 </selector>

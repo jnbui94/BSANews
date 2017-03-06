@@ -19,6 +19,7 @@
                 android:text="@string/head_button"
                 android:id="@+id/Head"
                 android:onClick="buttonClicked"
+               
                 android:layout_weight="1"/>
             <Button
                 android:layout_width="wrap_content"
