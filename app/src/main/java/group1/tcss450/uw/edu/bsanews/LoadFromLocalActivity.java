@@ -42,7 +42,6 @@ public class LoadFromLocalActivity extends AppCompatActivity {
         }
         News[] newses = mCourseDB.getBookmarks();
         final News[] tempNewses = newses;
-        Log.d("loadfromlocal", tempNewses[2].getName());
         NewsListAdapter adapter = new NewsListAdapter(this, newses);
         ListView mListView = (ListView) findViewById(R.id.load_from_local_ListView);
         mListView.setAdapter(adapter);
