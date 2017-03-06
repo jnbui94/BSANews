@@ -263,6 +263,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(mThat, NewsViewActivity.class);
                     intent.putExtra(KEY_USERNAME, mUsername);
                     intent.putExtra(NEWS_KEY, tempNewses[position]);
+                    intent.putExtra("Activity","Main");
                     startActivity(intent);
 
                 }
