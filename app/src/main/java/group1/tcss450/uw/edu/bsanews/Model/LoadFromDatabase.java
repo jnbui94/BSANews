@@ -2,6 +2,8 @@ package group1.tcss450.uw.edu.bsanews.Model;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -38,20 +41,24 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
      */
     private AppCompatActivity mActivity;
     /**
+     * the key for getting the username.
+     */
+    private static final String KEY_USERNAME = "USERNAME";
+    /**
      * key for receiving News object.
      */
     private final static String NEWS_KEY = "news";
+    private String mUsername;
 
-
-    private TextView mTextView;
 
     /**
      * constructor, takes a activity as argument for showing toast,
      * and textView for showing result.
      * @param activity
      */
-    public LoadFromDatabase(AppCompatActivity activity){
+    public LoadFromDatabase(AppCompatActivity activity, String username){
         mActivity = activity;
+        mUsername = username;
     }
 
     @Override
@@ -124,8 +131,9 @@ public class LoadFromDatabase extends AsyncTask<String, Void, String> {
                 public void onItemClick(AdapterView<?> parent, final View view,
                                         int position, long id) {
                     Intent intent = new Intent(mActivity, NewsViewActivity.class);
-                    //intent.putExtra(KEY_USERNAME, mUsername);
+                    intent.putExtra(KEY_USERNAME, mUsername);
                     intent.putExtra(NEWS_KEY, tempNewses[position]);
+                    intent.putExtra("Activity", "load");
                     mActivity.startActivity(intent);
 
                 }

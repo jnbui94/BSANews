@@ -9,7 +9,8 @@
     <Spinner
         android:id="@+id/cat_spinner"
         android:layout_width="match_parent"
-        android:layout_height="50dp"></Spinner>
+        android:layout_height="50dp"
+        ></Spinner>
     <ProgressBar
         android:layout_below="@+id/cat_spinner"
         android:id="@+id/cat_progressBar"

@@ -59,6 +59,8 @@ public class NewsViewActivity extends AppCompatActivity {
     private WebView mWebView;
     ProgressBar mProgressBar;
 
+    private String mActivityKey;
+
     /**
      * onCreate, initialize the fields.
      * @param savedInstanceState
@@ -69,12 +71,11 @@ public class NewsViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mActivityKey = getIntent().getStringExtra("Activity");
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
         mNews = (News) getIntent().getSerializableExtra(NEWS_KEY);
         mProgressBar = (ProgressBar) findViewById(R.id.news_progressBar);
         mWebView = (WebView) findViewById(R.id.news_webView);
-
         //load webpage without opening external browser, and show/hide progress bar
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -145,7 +146,19 @@ public class NewsViewActivity extends AppCompatActivity {
 
                 break;
             case R.id.news_view_home:
-                    homeActivity();
+                   // homeActivity();
+//                LoadActivity load = (LoadActivity) mActivity;
+//                load.homeActivity();
+//                    finish();
+                if(mActivityKey.equals("category")){
+                    CatagoryActivity.categoryAct.finish();
+                }else if (mActivityKey.equals("load")){
+                    LoadActivity.loadAct.finish();
+                } else if (mActivityKey.equals("Local")) {
+                    LoadFromLocalActivity.mLocalAct.finish();
+                }
+
+                finish();
                 break;
         }
 
@@ -157,9 +170,10 @@ public class NewsViewActivity extends AppCompatActivity {
      * This method will bring back the home Activity.
      */
     private void homeActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(KEY_USERNAME,mUsername);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.putExtra(KEY_USERNAME,mUsername);
+//        startActivity(intent);
+        finish();
     }
 
     /**

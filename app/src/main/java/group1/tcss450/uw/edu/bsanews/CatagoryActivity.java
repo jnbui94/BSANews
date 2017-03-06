@@ -1,5 +1,6 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -82,19 +83,19 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
      * Spinner for Categories.
      */
     private Spinner mSpinner;
+    public static Activity categoryAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catagory);
-
+        categoryAct = this;
         mSpinner = (Spinner) findViewById(R.id.cat_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
         mSpinner.setOnItemSelectedListener(this);
-
         mListView = (ListView) findViewById(R.id.cat_news_list_View);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
         mProgressBar = (ProgressBar) findViewById(R.id.cat_progressBar);
@@ -146,9 +147,10 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
      * This method will call the home activity.
      */
     private void homeActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(KEY_USERNAME,mUsername);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.putExtra(KEY_USERNAME,mUsername);
+//        startActivity(intent);
+        finish();
     }
     /**
      * sample code provided by instructor.
@@ -216,19 +218,6 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
                         .show();
                 return;
             }
-//            try {
-//                JSONObject jsonObject = new JSONObject(result);
-////                News news = new News(jsonObject);
-//                newsList = news.getNews(jsonObject);
-//
-//                listItems = new String[newsList.size()];
-//                for(int i = 0; i < newsList.size(); i++){
-//                    News temp = newsList.get(i);
-//                    listItems[i] = temp.getName();
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
 
             News[] newses = new News[0];
             try {
@@ -257,11 +246,11 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
                     Intent intent = new Intent(mThat, NewsViewActivity.class);
                     intent.putExtra(KEY_USERNAME, mUsername);
                     intent.putExtra(NEWS_KEY, tempNewses[position]);
+                    intent.putExtra("Activity", "category");
                     startActivity(intent);
 
                 }
             });
-            // mTextView.setText(result);
             mProgressBar.setVisibility(View.GONE);
         }
     }

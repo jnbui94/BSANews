@@ -1,5 +1,6 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,12 +28,14 @@ public class LoadFromLocalActivity extends AppCompatActivity {
     AppCompatActivity mActivity;
     private String mUsername;
     private NewsDB mCourseDB;
+    public static Activity mLocalAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_from_local);
         loadFromLocalDB();
+        mLocalAct = this;
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
     }
 
@@ -52,6 +55,7 @@ public class LoadFromLocalActivity extends AppCompatActivity {
                                     int position, long id) {
                 Intent intent = new Intent(mActivity, NewsViewActivity.class);
                 intent.putExtra(KEY_USERNAME, mUsername);
+                intent.putExtra("Activity", "Local");
                 intent.putExtra(NEWS_KEY, tempNewses[position]);
                 startActivity(intent);
 

@@ -1,7 +1,10 @@
 package group1.tcss450.uw.edu.bsanews;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -23,7 +27,7 @@ import group1.tcss450.uw.edu.bsanews.Model.LoadFromDatabase;
  *This activity loads data from database.
  * @author Aygun Avazova
  */
-public class LoadActivity extends AppCompatActivity {
+public class LoadActivity extends AppCompatActivity implements Serializable{
     /**
      * URL to connect database.
      */
@@ -33,6 +37,7 @@ public class LoadActivity extends AppCompatActivity {
 
     private static final String KEY_USERNAME = "USERNAME";
     private String mUsername;
+    public static Activity loadAct;
 
     /**
      * Initialize components.
@@ -42,9 +47,9 @@ public class LoadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
-
+        loadAct = this;
         AsyncTask<String, Void, String> task =null;
-        task = new LoadFromDatabase(this);
+        task = new LoadFromDatabase(this, mUsername);
 
         task.execute(PARTIAL_URL, mUsername);
     }
@@ -78,9 +83,12 @@ public class LoadActivity extends AppCompatActivity {
     /**
      * This method will bring main activity to the foreground.
      */
-    private void homeActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(KEY_USERNAME,mUsername);
-        startActivity(intent);
+    public void homeActivity() {
+//        Intent intent = new Intent(this, MainActivity.class);
+//        intent.putExtra(KEY_USERNAME,mUsername);
+//        startActivity(intent);
+        finish();
     }
+
+
 }
