@@ -51,14 +51,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         reg_btn = btn;
     }
 
-
+    /**
+     * attemp log in when Item is clicked
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         attemptLogin(view);
     }
 
     /**
-     * attempt to login
+     * attempt to login by checking the requirements.
      * @param view
      */
     protected void attemptLogin(View view){

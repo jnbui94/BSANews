@@ -146,10 +146,6 @@ public class NewsViewActivity extends AppCompatActivity {
 
                 break;
             case R.id.news_view_home:
-                   // homeActivity();
-//                LoadActivity load = (LoadActivity) mActivity;
-//                load.homeActivity();
-//                    finish();
                 if(mActivityKey.equals("category")){
                     CatagoryActivity.categoryAct.finish();
                 }else if (mActivityKey.equals("load")){
@@ -157,23 +153,12 @@ public class NewsViewActivity extends AppCompatActivity {
                 } else if (mActivityKey.equals("Local")) {
                     LoadFromLocalActivity.mLocalAct.finish();
                 }
-
                 finish();
                 break;
         }
 
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * This method will bring back the home Activity.
-     */
-    private void homeActivity() {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtra(KEY_USERNAME,mUsername);
-//        startActivity(intent);
-        finish();
     }
 
     /**

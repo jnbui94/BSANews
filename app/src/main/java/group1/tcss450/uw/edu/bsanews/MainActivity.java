@@ -265,7 +265,6 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(NEWS_KEY, tempNewses[position]);
                     intent.putExtra("Activity","Main");
                     startActivity(intent);
-
                 }
             });
             mProgressBar.setVisibility(View.GONE);

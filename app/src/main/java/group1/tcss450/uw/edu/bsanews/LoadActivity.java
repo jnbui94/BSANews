@@ -84,9 +84,6 @@ public class LoadActivity extends AppCompatActivity implements Serializable{
      * This method will bring main activity to the foreground.
      */
     public void homeActivity() {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtra(KEY_USERNAME,mUsername);
-//        startActivity(intent);
         finish();
     }
 

@@ -112,7 +112,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
         }
-
     }
 
     /**
@@ -178,32 +177,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
         finish();
     }
-//    @Override
-//    public void onBackPressed() {
-//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//        alert.setTitle("Exit Application");
-//        alert
-//                .setMessage("Click Yes to Exist")
-//                .setCancelable(false)
-//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        moveTaskToBack(true);
-//                        android.os.Process.killProcess(android.os.Process.myPid());
-//                        System.exit(1);
-//                    }
-//                })
-//                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.cancel();
-//                    }
-//                });
-//        AlertDialog alertDialog = alert.create();
-//        alertDialog.show();
-//        Intent intent = new Intent(this, LoginActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
- //   }
-
     /**
      * Code provided by instructor.
      */

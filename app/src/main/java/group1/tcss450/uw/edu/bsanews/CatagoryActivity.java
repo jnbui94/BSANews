@@ -102,6 +102,13 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
         mThat = this;
     }
 
+    /**
+     * Getting selected Item.
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String option = (String) parent.getAdapter().getItem(position);
@@ -112,6 +119,10 @@ public class CatagoryActivity extends AppCompatActivity implements AdapterView.O
             task.execute(mURL, option);
     }
 
+    /**
+     * Override method, we have no use for this feature.
+     * @param parent
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 

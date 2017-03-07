@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,18 +17,35 @@ import group1.tcss450.uw.edu.bsanews.Model.NewsListAdapter;
  * @author SHoa-han wang.
  */
 public class LoadFromLocalActivity extends AppCompatActivity {
-
-
+    /**
+     * Key for news.
+     */
     private final static String NEWS_KEY = "news";
     /**
      * the key for getting the username.
      */
     private static final String KEY_USERNAME = "USERNAME";
+    /**
+     * AppCombat variable.
+     */
     AppCompatActivity mActivity;
+    /**
+     * Username to keep track in DB
+     */
     private String mUsername;
+    /**
+     * NewsDB Object
+     */
     private NewsDB mCourseDB;
+    /**
+     * static activity variable.
+     */
     public static Activity mLocalAct;
 
+    /**
+     * Setting layout and assign variables.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +55,10 @@ public class LoadFromLocalActivity extends AppCompatActivity {
         mUsername = getIntent().getStringExtra(KEY_USERNAME);
     }
 
+    /**
+     * Loading content from Db and display a listView
+     * NewViewAcrtivity will start when item is clicked.
+     */
     private void loadFromLocalDB(){
         if(mCourseDB == null) {
             mCourseDB = new NewsDB(this);
